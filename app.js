@@ -28,6 +28,7 @@ var connection = mysql.createConnection({
   user     : 'root',
   password : 'root',
   host     : 'localhost:3306',
+  database: 'Regrasp',
   socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
 });
 
@@ -38,10 +39,12 @@ connection.connect(function(err) {
  }
   console.log("HI");
 });
-var post  = {"select * from TestTable"};
+var post  = "select * from TestTable";
 var query = connection.query(post, function(err, result) {
 	if(err){
 		console.log('db_connection_err',err);
+	}else{
+		console.log("this is result ",result);
 	}
   // Neat!
 });
