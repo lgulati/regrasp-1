@@ -1,0 +1,44 @@
+@font-face{
+	font-family: "Monserat";
+	src: url("/fonts/montserrat/Montserrat-Bold.ttf");
+	font-weight: bold;
+	font-style: normal;
+}
+
+html{
+	background-color:  #e9e9f4;
+}
+.homecontainer{
+	text-align: center;
+	color:#d22848;
+	font-family:"Monserat";
+	font-size:36pt;
+	padding:60px;
+} 
+.icon{
+	position: relative;
+	height: 1000px;
+	width: 1000px;
+	margin: auto;
+	display:inline-block;
+
+}
+.users{
+	height: 100px;
+	width: 100px;
+	padding-right: 100px;
+	padding-left:100px;
+}
+.caption{
+	font-size:24pt;
+}
+.iconWtext{
+	display:inline-block;
+	width:300px;
+
+
+}
+
+
+
+}
