@@ -6,7 +6,7 @@ public class ServerMain
 {
 	
 	String json=
-	"{\"type\" : \"event\",\"testID\" : 12345,\"objects\" : [{\"id\" : 123,\"type\" : \"hand\",\"x\" : 0.2341,\"y\" : 0.6521,\"z\" : 0.1254},{\"id\" : 124,\"type\" : \"object\",\"x\" : 0.4245,\"y\" : 0.4234,\"z\" : 0.4246}]}";
+	"{\"type\" : \"event\",\"testID\" : 12345,\"objects\" : [{\"id\" : 123,\"type\" : \"hand\",\"x\" : 0.2341,\"y\" : 0.6521,\"z\" : 0.1254},{\"id\" : 124,\"type\" : \"object\",\"x\" : 0.4245,\"y\" : 0.4234,\"z\" : 0.4246}}";
     public static void main(String[] args)
     {
         new ServerMain();
@@ -36,7 +36,7 @@ public class ServerMain
             	String message=a.nextLine();
                 //This will wait until a line of text has been sent
                 System.out.println(message);
-               	output.println(json);
+               	output.println(message);
                 
             }
         } catch(IOException exception) {

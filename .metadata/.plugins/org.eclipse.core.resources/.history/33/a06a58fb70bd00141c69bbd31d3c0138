@@ -4,9 +4,6 @@ import java.io.*;
  
 public class ServerMain
 {
-	
-	String json=
-	"{\"type\" : \"event\",\"testID\" : 12345,\"objects\" : [{\"id\" : 123,\"type\" : \"hand\",\"x\" : 0.2341,\"y\" : 0.6521,\"z\" : 0.1254},{\"id\" : 124,\"type\" : \"object\",\"x\" : 0.4245,\"y\" : 0.4234,\"z\" : 0.4246}]}";
     public static void main(String[] args)
     {
         new ServerMain();
@@ -15,7 +12,7 @@ public class ServerMain
     public ServerMain() 
     {
         Scanner a = new Scanner(System.in);
-
+    	String message=a.nextLine();
         //We need a try-catch because lots of errors can be thrown
         try {
             ServerSocket sSocket = new ServerSocket(4000);
@@ -29,15 +26,19 @@ public class ServerMain
              
             //Tell the client that he/she has connected
             output.println("You have connected at: " + new Date());
+            String in;
             //Loop that runs server functions
 
             while(true) {
             	
-            	String message=a.nextLine();
+            	output.println("Hello");
                 //This will wait until a line of text has been sent
-                System.out.println(message);
-               	output.println(json);
-                
+                String chatInput = input.readLine();
+                if(chatInput!=null){
+                    System.out.println(chatInput);
+                	System.out.println(message);
+                	output.println(message);
+                }
             }
         } catch(IOException exception) {
             System.out.println("Error: " + exception);
