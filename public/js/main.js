@@ -3,6 +3,19 @@ window.onload=function(){
 	var message=[];
 	var socket=io.connect('http://localhost:3000');
 	var content=document.getElementById("content");
+	var button=document.getElementById("enable").onclick=function()
+	{
+		//alert('hello');
+		var elem=document.getElementById("enable");
+	 	if(elem.value=="Enable"){
+			 elem.value="Disable";
+			 socket.emit('enableJSON');
+	 	}else{
+	 	 elem.value="Enable";
+	 	 socket.emit('disableJSON');
+	 	}
+
+	 };
 	socket.on('message',function(data){
 		console.log("HERE");
 		var html="";

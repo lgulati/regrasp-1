@@ -4,7 +4,7 @@ var stormpath = require('express-stormpath');
 var app = express();
 //var socket = require('socket.io-client')('http://localhost');
 var net = require('net');
-var client = net.connect(4000,'localhost',function(){
+var client = net.connect(8888,'128.237.169.237',function(){
 	console.log('Connected');
 });
 var io = require('socket.io').listen(app.listen(3000));
@@ -22,9 +22,20 @@ app.get('/', function(req, res) {
     title: 'Welcome'
   });
 });
-
+var enable="{\"type\" : \"request\",\"enableEvent\": true}";
+var disable="{\"type\" : \"request\",\"enableEvent\": false}";
 io.sockets.on('connection', function (socket) {
 	console.log("CONNECTIONS");
+	socket.on('enableJSON',function(){
+		console.log("enable");
+		client.write(enable);
+
+	});
+	socket.on('disableJSON',function(){
+		client.write(disable);
+	});
+	
+
 });
 
 /*var mysql      = require('mysql');
