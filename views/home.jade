@@ -1,15 +1,18 @@
 html
   head
     title=title
+    script(src='/js/main.js')
     link(href='/css/style.css', rel='stylesheet')
-  div.homecontainer
-    p Select an Account
-    div.icon
-      div.iconWtext
-        img.users(src="img/icons-all/user-avatar.png",height="100px",width="100px")
-        span.caption Patient
-      div.iconWtext
-        img.users(src="img/icons-all/user-avatar.png",height="100px",width="100px")
-        span.caption Caregiver
+    body(margin="auto")
+      div.homecontainer
+        div.centered
+          p(style='withe-space:pre;') Select an Account
+          div.iconWtext
+            a(href="/showPatient/")
+              img.users(src="img/icons-all/question.png",height="100px",width="100px")
+            div.caption Patient
+          div.iconWtext
+            img.users(src="img/icons-all/user-avatar.png",height="100px",width="100px")
+            div.caption Caregiver
 
         

@@ -41,3 +41,6 @@ window.onload=function(){
 		
 	});
 }
+function selectPatient(){
+		alert("patient selected");
+	}

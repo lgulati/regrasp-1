@@ -4,24 +4,24 @@ var stormpath = require('express-stormpath');
 var app = express();
 //var socket = require('socket.io-client')('http://localhost');
 var net = require('net');
-var client = net.connect(8888,'128.237.169.237',function(){
+/*var client = net.connect(8888,'128.237.169.237',function(){
 	console.log('Connected');
-});
+});*/
 var io = require('socket.io').listen(app.listen(3000));
-client.on('data', function(data) {
+/*client.on('data', function(data) {
   console.log(data.toString());
   io.emit('message', { message: data.toString() });
-  //client.write("Received");
-});
+});*/
 app.use(express.static(__dirname + '/public'));
 app.set('views', './views');
 app.set('view engine', 'jade');
 app.engine('jade', require('jade').__express);
 app.get('/', function(req, res) {
-  res.render('json', {
+  res.render('home', {
     title: 'Welcome'
   });
 });
+app.get('/showPatient/', routes.showPatient);
 var enable="{\"type\" : \"request\",\"enableEvent\": true}";
 var disable="{\"type\" : \"request\",\"enableEvent\": false}";
 io.sockets.on('connection', function (socket) {

@@ -10,35 +10,89 @@ html{
 }
 .homecontainer{
 	text-align: center;
+	margin-left:auto;
+	margin-right:auto;
 	color:#d22848;
 	font-family:"Monserat";
 	font-size:36pt;
-	padding:60px;
 } 
+
+
 .icon{
-	position: relative;
+	text-align: center;
 	height: 1000px;
 	width: 1000px;
-	margin: auto;
-	display:inline-block;
 
+
+}
+.caption{
+	display:block;
 }
 .users{
 	height: 100px;
 	width: 100px;
-	padding-right: 100px;
-	padding-left:100px;
 }
 .caption{
 	font-size:24pt;
 }
 .iconWtext{
 	display:inline-block;
-	width:300px;
+	text-align: center;
+	width: 300px;
+
+}
+.tabletLayout{
+	width:1280px;
+	height:800px;
+	margin:0;
+}
+.back{
+	margin:auto;
+	width:130px;
+	float:left;
+	height:800px;
+}
+.backIcon{
+	padding-left:15px;
+	height:100px;
+	width:100px;
+}
+
+.nextStep{
+	background-color:#97e157;
+	height:100%;
+	width:400px;
+	float:left;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align:center;
+	display:table;
+	color:white;
+}
+.centered{
+	font-family:"Monserat";
+	vertical-align:middle;
+	display:table-cell;
+	font-size:36pt;
 
 
 }
-
-
-
+.centeredpatient{
+	display:table;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align: center;
+	height:100%;
+	color:#d22848;
+	font-size:36pt;
+	float:left;
+	width: 750px;
+}
+html,#header{
+	margin: 0 !important;
+    padding: 0 !important;
+}
+html,body{
+	margin: 0 !important;
+    padding: 0 !important;
 }
