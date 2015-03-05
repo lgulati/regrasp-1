@@ -10,8 +10,9 @@ html{
 }
 .homecontainer{
 	text-align: center;
-	margin-left:auto;
-	margin-right:auto;
+	width:1280px;
+	height:800px;
+	display:table;
 	color:#d22848;
 	font-family:"Monserat";
 	font-size:36pt;
@@ -29,8 +30,8 @@ html{
 	display:block;
 }
 .users{
-	height: 100px;
-	width: 100px;
+	height: 200px;
+	width: 200px;
 }
 .caption{
 	font-size:24pt;
@@ -47,13 +48,17 @@ html{
 	margin:0;
 }
 .back{
+	margin-left:30px;
 	margin:auto;
-	width:130px;
+	margin-top:20px;
+	width:10%;
 	float:left;
-	height:800px;
+
 }
 .backIcon{
-	padding-left:15px;
+	background-color:#ffcdd9;
+	margin-left:10px;
+	padding:15px;
 	height:100px;
 	width:100px;
 }
@@ -61,7 +66,7 @@ html{
 .nextStep{
 	background-color:#97e157;
 	height:100%;
-	width:400px;
+	width:30%;
 	float:left;
 	margin-top:auto;
 	margin-bottom:auto;
@@ -77,6 +82,24 @@ html{
 
 
 }
+.help{
+
+	display:table;
+	background-color:#f3284e;
+	height:130px;
+	width:400px;
+	margin-left:60px;
+	margin-top:20px;
+}
+.helpText{
+	color:#ffccd8;
+	text-align:center;
+	font-family:"Monserat";
+	vertical-align:middle;
+	display:table-cell;
+	font-size:36pt;
+
+}
 .centeredpatient{
 	display:table;
 	margin-top:auto;
@@ -86,7 +109,17 @@ html{
 	color:#d22848;
 	font-size:36pt;
 	float:left;
-	width: 750px;
+	width: 60%;
+}
+.chartArea{
+	padding-top:80px;
+}
+
+.chartText{
+	text-align:left;
+	color:#d22848;
+	font-family:"Monserat";
+	font-size:30pt;
 }
 html,#header{
 	margin: 0 !important;
@@ -95,4 +128,9 @@ html,#header{
 html,body{
 	margin: 0 !important;
     padding: 0 !important;
+}
+.chart{
+	width:600;
+	height:294;
+	padding-top:80px;
 }

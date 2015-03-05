@@ -22,6 +22,7 @@ app.get('/', function(req, res) {
   });
 });
 app.get('/showPatient/', routes.showPatient);
+app.get('/beginsetup/', routes.beginsetup);
 var enable="{\"type\" : \"request\",\"enableEvent\": true}";
 var disable="{\"type\" : \"request\",\"enableEvent\": false}";
 io.sockets.on('connection', function (socket) {
