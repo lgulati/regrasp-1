@@ -4,7 +4,8 @@ import java.io.*;
  
 public class ServerMain
 {
-	
+	String connected="{\"type\" : \"Connection\",\"isConnected\" : true}";
+	String caseconnected="{\"type\" : \"CaseConnection\",\"isConnected\" : true}";
 	String json=
 	"{\"type\" : \"event\",\"testID\" : 12345,\"objects\" : [{\"id\" : 123,\"type\" : \"hand\",\"x\" : 0.2341,\"y\" : 0.6521,\"z\" : 0.1254},{\"id\" : 124,\"type\" : \"object\",\"x\" : 0.4245,\"y\" : 0.4234,\"z\" : 0.4246}]}";
     public static void main(String[] args)
@@ -34,9 +35,15 @@ public class ServerMain
             while(true) {
             	
             	String message=a.nextLine();
+            	if(message.equals("a")){
+            		System.out.println(connected);
+            		output.println(connected);
+            	}else if(message.equals("b")){
+            		output.println(caseconnected);
+            	}
                 //This will wait until a line of text has been sent
                 System.out.println(message);
-               	output.println(json);
+               	//output.println(json);
                 
             }
         } catch(IOException exception) {

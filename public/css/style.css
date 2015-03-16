@@ -10,8 +10,8 @@ html{
 }
 .homecontainer{
 	text-align: center;
-	width:1280px;
-	height:800px;
+	width:100%;
+	height:100%;
 	display:table;
 	color:#d22848;
 	font-family:"Monserat";
@@ -43,8 +43,8 @@ html{
 
 }
 .tabletLayout{
-	width:1280px;
-	height:800px;
+	width:100%;
+	height:100%;
 	margin:0;
 }
 .back{
@@ -56,7 +56,6 @@ html{
 
 }
 .backIcon{
-	background-color:#ffcdd9;
 	margin-left:10px;
 	padding:15px;
 	height:100px;
