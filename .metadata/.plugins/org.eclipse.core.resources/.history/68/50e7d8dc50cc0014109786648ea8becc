@@ -5,7 +5,7 @@ import java.io.*;
 public class ServerMain
 {
 	String connected="{\"type\" : \"Connection\",\"isConnected\" : true}";
-	String systemready="{\"type\" : \"SystemReady\",\"taskID\" : 4,\"taskName\" : \"Grasp\"}";
+	String systemready="{\"type\" : \"SystemReady\",\"taskID\" : 4}";
 	String caseconnected="{\"type\" : \"CaseConnection\",\"isConnected\" : true}";
 	String json=
 	"{\"type\" : \"event\",\"testID\" : 12345,\"objects\" : [{\"id\" : 123,\"type\" : \"hand\",\"x\" : 0.2341,\"y\" : 0.6521,\"z\" : 0.1254},{\"id\" : 124,\"type\" : \"object\",\"x\" : 0.4245,\"y\" : 0.4234,\"z\" : 0.4246}]}";
@@ -41,8 +41,6 @@ public class ServerMain
             		output.println(connected);
             	}else if(message.equals("b")){
             		output.println(caseconnected);
-            	}else if(message.equals("c")){
-            		output.println(systemready);
             	}
                 //This will wait until a line of text has been sent
                 System.out.println(message);

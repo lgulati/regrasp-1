@@ -5,15 +5,20 @@ var app = express();
 //console.log(myIP());
 var socket = require('socket.io-client')('http://localhost');
 var net = require('net');
-/*var client = net.connect(8888,'128.237.169.237',function(){
-	console.log('Connected');
-});*/
-var client = net.connect(4000,'localhost',function(){
+var curTaskID=-1;
+var client = net.connect(8888,'128.237.166.175',function(){
 	console.log('Connected');
 });
+/*var client = net.connect(4000,'localhost',function(){
+	console.log('Connected');
+});*/
 var io = require('socket.io').listen(app.listen(3000));
 client.on('data', function(data) {
   console.log(data.toString());
+  var obj=JSON.parse(data.toString());
+  if(obj.type==="SystemReady"){
+  	curTaskID=obj.taskID;
+  }
   io.emit('message', { message: data.toString() });
 });
 app.use(express.static(__dirname+"/public"));
@@ -33,9 +38,19 @@ app.get('/syncing/', routes.syncing);
 app.get('/complete/',routes.complete);
 app.get('/removehands/',routes.removehands);
 app.get('/calibrate/',routes.calibrate);
+app.get('/completecalibrate/',routes.completecalibrate);
+app.get('/begintask/',routes.begintask);
+app.get('/tasktest/',routes.taskTest);
+var startTask="{\"type\" : \"startTask\"}";
+var resetTask="{\"type\" : \"resetTask\"}";
+var endTask="{\"type\" : \"endTask\"}";
+var enable="{\"type\" : \"request\",\"enableEvent\": true}";
 var enable="{\"type\" : \"request\",\"enableEvent\": true}";
 var disable="{\"type\" : \"request\",\"enableEvent\": false}";
-var caseConnect="{type:\"CaseConnected\"}";
+var caseConnect="{\"type\" : \"CaseConnected\"}";
+var systemReady="{\"type\" : \"SystemReady\"}";
+var objectplaced="{\"type\" : \"ObjectsPlaced\",\"taskID\" : ";
+
 io.sockets.on('connection', function (socket) {
 	console.log("CONNECTIONS");
 	socket.on('enableJSON',function(){
@@ -50,6 +65,31 @@ io.sockets.on('connection', function (socket) {
 		//client.write(caseConnect);
 		console.log(caseConnect);
 	});
+	socket.on('systemready',function(){
+		console.log(systemReady);
+	});
+	socket.on('objectplaced',function(){
+		console.log(objectplaced+curTaskID.toString()+"}");
+
+	});
+
+	socket.on('startTask',function(){
+		client.write(startTask);
+		//console.log(startTask);
+
+	});
+	socket.on('resetTask',function(){
+		client.write(resetTask);
+		//console.log(resetTask);
+
+	});
+	socket.on('endTask',function(){
+		client.write(endTask);
+		//console.log(endTask);
+
+	});
+	
+	
 	
 
 });

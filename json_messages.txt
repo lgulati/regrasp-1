@@ -52,7 +52,8 @@
 //Server
 {
 	type:"SystemReady",
-	taskID:02
+	taskID:02,
+	taskName:"Grasp"
 }
 
 5.Client has placed objects according to task instructions, Server returns what needs to be fixed
@@ -60,8 +61,9 @@
 //Client
 {
 	type:"ObjectsPlaced",
-	taskID:02,
-	attempt:1
+	attempt:1,
+	taskID:02
+
 }
 
 //Server

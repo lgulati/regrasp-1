@@ -55,12 +55,46 @@ html{
 	float:left;
 
 }
+#backtest{
+	margin-left:30px;
+	margin:auto;
+	margin-top:auto;
+	width:33.3%;
+	float:left;
+	height:100%;
+	text-align:center;
+	background-color:#f3284e;
+	display:table;
+}
+#centeredpatienttest{
+	display:table;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align: center;
+	height:100%;
+	color:#d22848;
+	font-size:36pt;
+	float:left;
+	width: 33.3%;
+}
 .backIcon{
 	margin-left:10px;
 	padding:15px;
 	height:100px;
 	width:100px;
 }
+#nextStepTest{
+	background-color:#97e157;
+	height:100%;
+	width:33%;
+	float:left;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align:center;
+	display:table;
+	color:white;
+}
+
 
 .nextStep{
 	background-color:#97e157;
@@ -110,6 +144,7 @@ html{
 	float:left;
 	width: 60%;
 }
+
 .chartArea{
 	padding-top:80px;
 }

@@ -25,3 +25,13 @@ exports.removehands=function(req,res){
 exports.calibrate=function(req,res){
 	res.render('calibrate',{title:"System Calibrating"});
 }
+exports.completecalibrate=function(req,res){
+	res.render('completecalibrate',{title:"System Calibrated"});
+}
+exports.begintask=function(req,res){
+	res.render('begintask',{title:"Begin Task"});
+}
+exports.taskTest=function(req,res){
+	res.render('tasktest',{title:"Task Test"});
+}
+
