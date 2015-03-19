@@ -3,15 +3,16 @@ var express = require('express')
 var stormpath = require('express-stormpath');
 var app = express();
 //console.log(myIP());
-var socket = require('socket.io-client')('http://localhost');
+var http=require('http').Server(app);
+var socket = require('socket.io')(http);
 var net = require('net');
 var curTaskID=-1;
-var client = net.connect(8888,'128.237.166.175',function(){
-	console.log('Connected');
-});
-/*var client = net.connect(4000,'localhost',function(){
+/*var client = net.connect(8888,'128.237.166.175',function(){
 	console.log('Connected');
 });*/
+var client = net.connect(4000,'localhost',function(){
+	console.log('Connected');
+});
 var io = require('socket.io').listen(app.listen(3000));
 client.on('data', function(data) {
   console.log(data.toString());
@@ -40,6 +41,7 @@ app.get('/removehands/',routes.removehands);
 app.get('/calibrate/',routes.calibrate);
 app.get('/completecalibrate/',routes.completecalibrate);
 app.get('/begintask/',routes.begintask);
+app.get('/starttask/',routes.starttask);
 app.get('/tasktest/',routes.taskTest);
 var startTask="{\"type\" : \"startTask\"}";
 var resetTask="{\"type\" : \"resetTask\"}";
@@ -51,7 +53,7 @@ var caseConnect="{\"type\" : \"CaseConnected\"}";
 var systemReady="{\"type\" : \"SystemReady\"}";
 var objectplaced="{\"type\" : \"ObjectsPlaced\",\"taskID\" : ";
 
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
 	console.log("CONNECTIONS");
 	socket.on('enableJSON',function(){
 		console.log("enable");
@@ -74,18 +76,18 @@ io.sockets.on('connection', function (socket) {
 	});
 
 	socket.on('startTask',function(){
-		client.write(startTask);
-		//console.log(startTask);
+		//client.write(startTask);
+		console.log(startTask);
 
 	});
 	socket.on('resetTask',function(){
-		client.write(resetTask);
-		//console.log(resetTask);
+		//client.write(resetTask);
+		console.log(resetTask);
 
 	});
 	socket.on('endTask',function(){
-		client.write(endTask);
-		//console.log(endTask);
+		//client.write(endTask);
+		console.log(endTask);
 
 	});
 	

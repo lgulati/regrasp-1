@@ -34,4 +34,7 @@ exports.begintask=function(req,res){
 exports.taskTest=function(req,res){
 	res.render('tasktest',{title:"Task Test"});
 }
+exports.starttask=function(req,res){
+	res.render('starttask',{title:"Task Test"});
+}
 

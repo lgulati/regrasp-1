@@ -1,7 +1,7 @@
 window.onload=function(){
 	console.log("HERE first");
 	var taskLoad=false;
-	var socket=io.connect('http://localhost:3000');
+	var socket=io();
 	var start=document.getElementById("nextStepTest").onclick=function(){
 		socket.emit("startTask");
 	}	
