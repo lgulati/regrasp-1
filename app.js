@@ -64,7 +64,7 @@ io.on('connection', function (socket) {
 		client.write(disable);
 	});
 	socket.on('caseConnect',function(){
-		//client.write(caseConnect);
+		client.write(caseConnect);
 		console.log(caseConnect);
 	});
 	socket.on('systemready',function(){
@@ -76,17 +76,17 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('startTask',function(){
-		//client.write(startTask);
+		client.write(startTask);
 		console.log(startTask);
 
 	});
 	socket.on('resetTask',function(){
-		//client.write(resetTask);
+		client.write(resetTask);
 		console.log(resetTask);
 
 	});
 	socket.on('endTask',function(){
-		//client.write(endTask);
+		client.write(endTask);
 		console.log(endTask);
 
 	});
