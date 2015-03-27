@@ -11,7 +11,7 @@ var curTaskID=-1;
 	console.log('Connected');
 });*/
 //handle send or receive failures and connection
-var client = net.connect(4000,'localhost',function(){
+var client = net.connect(8888,'localhost',function(){
 	console.log('Connected');
 });
 var io = require('socket.io').listen(app.listen(3000));

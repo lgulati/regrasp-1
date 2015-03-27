@@ -20,7 +20,7 @@ public class ServerMain
 
         //We need a try-catch because lots of errors can be thrown
         try {
-            ServerSocket sSocket = new ServerSocket(8888);
+            ServerSocket sSocket = new ServerSocket(4000);
             System.out.println("Server started at: " + new Date()); 
             //Wait for a client to connect
             Socket socket;
