@@ -44,7 +44,7 @@ app.get('/completecalibrate/',routes.completecalibrate);
 app.get('/begintask/',routes.begintask);
 app.get('/starttask/',routes.starttask);
 app.get('/tasktest/',routes.taskTest);
-app.get('/taskgo/:rep/',routes.gotask);
+app.get('/taskgo/',routes.gotask);
 app.get('/taskscore/',routes.taskscore);
 var startTask="{\"type\" : \"startTask\"}";
 var resetTask="{\"type\" : \"resetTask\"}";

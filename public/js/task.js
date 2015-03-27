@@ -8,19 +8,22 @@ window.onload=function(){
 	socket.emit("startTask");
 	var start=document.getElementById("start").onclick=function(){
 		if(!score){
-			if(count>1){
-				count-=1;
-				score=true;
-
-
-				//io.emit("completeTask");
-			}
+			count-=1;
+			score=true;
+			socket.emit("completeTask");
+			document.getElementById("taskCenter").innerHTML="Score Loading";
 		}
 		else{
-			document.getElementById("count").innerHTML="You have completed this task";
+			if(count>=1){
+				score =false;
+				document.getElementById("taskCenter").innerHTML="You have  repetitions left";
+			}
+			else{
+				document.getElementById("taskCenter").innerHTML="You have completed this task";
+			}
 		}
 
-	}
+	};
 
 
 	socket.on('message',function(data){
