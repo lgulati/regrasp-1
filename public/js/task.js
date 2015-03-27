@@ -10,22 +10,21 @@ window.onload=function(){
 		if(!score){
 			count-=1;
 			score=true;
-			socket.emit("completeTask");
+			socket.emit("endTask");
 			document.getElementById("taskCenter").innerHTML="Score Loading";
 		}
 		else{
 			if(count>=1){
 				score =false;
+				socket.emit("startTask");
 				document.getElementById("taskCenter").innerHTML="You have  repetitions left";
 			}
 			else{
 				document.getElementById("taskCenter").innerHTML="You have completed this task";
+				socket.emit("quit");
 			}
 		}
-
 	};
-
-
 	socket.on('message',function(data){
 		if(data.message!=null){
 			console.log("got message");

@@ -50,7 +50,7 @@ var startTask="{\"type\" : \"startTask\"}";
 var resetTask="{\"type\" : \"resetTask\"}";
 var endTask="{\"type\" : \"endTask\"}";
 var enable="{\"type\" : \"request\",\"enableEvent\": true}";
-var enable="{\"type\" : \"request\",\"enableEvent\": true}";
+var quit="{\"type\" : \"quit\"}";
 var disable="{\"type\" : \"request\",\"enableEvent\": false}";
 var caseConnect="{\"type\" : \"CaseConnected\"}";
 var systemReady="{\"type\" : \"SystemReady\"}";
@@ -90,7 +90,7 @@ io.on('connection', function (socket) {
 
 	});
 	socket.on('endTask',function(){
-		//client.write(endTask);
+		client.write(endTask);
 		console.log(endTask);
 
 	});
@@ -100,8 +100,13 @@ io.on('connection', function (socket) {
 
 	});
 	socket.on('beginTask',function(){
-		//client.write(endTask);
+		client.write(endTask);
 		console.log(beginTask);
+
+	});
+	socket.on('quit',function(){
+		client.write(quit);
+		console.log(quit);
 
 	});
 	
