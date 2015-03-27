@@ -10,6 +10,7 @@ var curTaskID=-1;
 /*var client = net.connect(8888,'128.237.166.175',function(){
 	console.log('Connected');
 });*/
+//handle send or receive failures and connection
 var client = net.connect(4000,'localhost',function(){
 	console.log('Connected');
 });
@@ -43,6 +44,8 @@ app.get('/completecalibrate/',routes.completecalibrate);
 app.get('/begintask/',routes.begintask);
 app.get('/starttask/',routes.starttask);
 app.get('/tasktest/',routes.taskTest);
+app.get('/taskgo/:rep/',routes.gotask);
+app.get('/taskscore/',routes.taskscore);
 var startTask="{\"type\" : \"startTask\"}";
 var resetTask="{\"type\" : \"resetTask\"}";
 var endTask="{\"type\" : \"endTask\"}";
@@ -51,8 +54,9 @@ var enable="{\"type\" : \"request\",\"enableEvent\": true}";
 var disable="{\"type\" : \"request\",\"enableEvent\": false}";
 var caseConnect="{\"type\" : \"CaseConnected\"}";
 var systemReady="{\"type\" : \"SystemReady\"}";
-var objectplaced="{\"type\" : \"ObjectsPlaced\",\"taskID\" : ";
-
+var objectplaced="{\"type\" : \"ObjectsPlaced\"}";
+var beginTask="{\"type\" : \"BeginTask\"}";
+var completeTask="{\"type\" : \"CompleteTask\",\"attempt\" : ";
 io.on('connection', function (socket) {
 	console.log("CONNECTIONS");
 	socket.on('enableJSON',function(){
@@ -86,8 +90,18 @@ io.on('connection', function (socket) {
 
 	});
 	socket.on('endTask',function(){
-		client.write(endTask);
+		//client.write(endTask);
 		console.log(endTask);
+
+	});
+	socket.on('completeTask',function(){
+		//client.write(endTask);
+		console.log(completeTask);
+
+	});
+	socket.on('beginTask',function(){
+		//client.write(endTask);
+		console.log(beginTask);
 
 	});
 	

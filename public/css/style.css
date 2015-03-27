@@ -83,7 +83,7 @@ html{
 	height:100px;
 	width:100px;
 }
-#nextStepTest{
+.nextStepTest{
 	background-color:#97e157;
 	height:100%;
 	width:33%;
@@ -97,6 +97,17 @@ html{
 
 
 .nextStep{
+	background-color:#97e157;
+	height:100%;
+	width:30%;
+	float:left;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align:center;
+	display:table;
+	color:white;
+}
+#start{
 	background-color:#97e157;
 	height:100%;
 	width:30%;

@@ -37,4 +37,11 @@ exports.taskTest=function(req,res){
 exports.starttask=function(req,res){
 	res.render('starttask',{title:"Task Test"});
 }
+exports.gotask=function(req,res){
+	res.render('taskgo',{title:"Task Go",rep:3});
+}
+exports.taskscore=function(req,res){
+	res.render('taskscore',{title:"Task Go"});
+}
+
 

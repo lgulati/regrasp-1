@@ -1,23 +1,18 @@
 window.onload=function(){
 	console.log("HERE first");
+	var taskLoad=false;
 	var socket=io();
-	socket.emit("caseConnect");
+	var taskname=document.getElementById("taskName");
+	socket.emit("endTask");
 	socket.on('message',function(data){
 		console.log("HERE");
 		var html="";
-		var connected=false;
 		if(data.message!=null){
-			alert("HI");
 			var obj=JSON.parse(data.message);
-			if(obj.type==="CaseConnection"){
-					if(obj.isConnected){
-						console.log("Case is connected");
-						document.location.href="/complete/";
-					}
-				}
+			alert(data.message);
 		}else{
 			console.log("Problem",data);
 		}
-			
+		
 	});
 }

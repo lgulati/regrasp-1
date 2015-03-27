@@ -2,6 +2,8 @@ html
   head
     title=title
     link(href='/css/style.css', rel='stylesheet')
+    script(src='../socket.io/socket.io.js')
+    script(src='/js/task.js')
     body(margin="auto")
       div.homecontainer
         div.centered
@@ -9,9 +11,10 @@ html
           div.iconWtext
             a(href="/patienthome/")
               img.users(src="img/icons-all/user-avatar.png",height="100px",width="100px")
-            div.caption User 1
+            div.caption Regular
           div.iconWtext
-            img.users(src="../img/icons-all/user-avatar.png",height="100px",width="100px")
-            div.caption User 2
+            a(href="/taskgo/3/")
+              img.users(src="../img/icons-all/user-avatar.png",height="100px",width="100px")
+              div.caption Demo
 
         
