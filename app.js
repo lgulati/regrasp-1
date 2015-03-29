@@ -29,10 +29,9 @@ function setupConnection(){
 }
 client.on('error',function(err){
 	console.log(err);
-	while(err.code == 'ECONNREFUSED'){
+	if(err.code == 'ECONNREFUSED'){
 		client.setTimeout(1000,function(){
 			client.connect(PORT,HOST,function(){
-				console.log("reconnected worked");
 			});
 		});
 	}
