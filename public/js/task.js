@@ -7,6 +7,14 @@ window.onload=function(){
 	document.getElementById("rep").innerHTML="Repetition "+count.toString();
 	var score=false;
 	var task=document.getElementById("task");
+	socket.on('message',function(data){
+		if(data.message!=null){
+			var obj=JSON.parse(data.message);
+			var score=obj.score;
+			document.getElementById("taskCenter").innerHTML=score.toString();
+		}
+
+	});
 	task.onclick=function(){
 		if(!start){
 			socket.emit("startTask");
@@ -29,7 +37,6 @@ window.onload=function(){
 		if(!score){
 			if(count>0){
 				document.getElementById("taskCenter").innerHTML="You have "+count.toString()+" repetitions left";
-				socket.emit("systemReady");
 				score=true;
 			}else{
 				document.getElementById("taskCenter").innerHTML="You are done";
@@ -37,6 +44,7 @@ window.onload=function(){
 			}
 		}else{
 			score=false;
+			socket.emit("systemReady");
 			task.style.zIndex="11";
 		}
 	}

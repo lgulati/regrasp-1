@@ -82,8 +82,9 @@ io.on('connection', function (socket) {
 		client.write(caseConnect);
 		console.log(caseConnect);
 	});
-	socket.on('systemready',function(){
+	socket.on('systemReady',function(){
 		console.log(systemReady);
+		client.write(systemReady);
 	});
 	socket.on('objectplaced',function(){
 		console.log(objectplaced+curTaskID.toString()+"}");
