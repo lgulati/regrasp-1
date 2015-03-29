@@ -23,6 +23,9 @@ client.on('data', function(data) {
   }
   io.emit('message', { message: data.toString() });
 });
+client.on('error',function(err){
+	console.log(err);
+})
 app.use(express.static(__dirname+"/public"));
 app.set('views', './views');
 app.set('view engine', 'jade');
