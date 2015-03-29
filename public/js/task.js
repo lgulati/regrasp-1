@@ -3,37 +3,41 @@ window.onload=function(){
 	var taskLoad=false;
 	var socket=io();
 	var count=3;
+	var start=false;
+	document.getElementById("rep").innerHTML="Repetition "+count.toString();
 	var score=false;
-	var socket=io();
-	socket.emit("startTask");
-	var start=document.getElementById("start").onclick=function(){
-		if(!score){
+	var task=document.getElementById("task");
+	task.onclick=function(){
+		if(!start){
+			socket.emit("startTask");
+			task.style.backgroundColor='#f3284e';
+			document.getElementById("tasktext").innerHTML="End";
+			start=true;
+		}else{
 			count-=1;
-			score=true;
-			socket.emit("endTask");
 			document.getElementById("taskCenter").innerHTML="Score Loading";
+			socket.emit("endTask");
+			task.style.backgroundColor='#97e157';
+			document.getElementById("tasktext").innerHTML="Start";
+			start=false;
+			task.style.zIndex="9";
+			document.getElementById("rep").innerHTML="Repetition "+count.toString();
 		}
-		else{
-			if(count>=1){
-				score =false;
-				socket.emit("startTask");
-				document.getElementById("taskCenter").innerHTML="You have  repetitions left";
-			}
-			else{
-				document.getElementById("taskCenter").innerHTML="You have completed this task";
+
+	}
+	document.getElementById("start").onclick=function(){
+		if(!score){
+			if(count>0){
+				document.getElementById("taskCenter").innerHTML="You have "+count.toString()+" repetitions left";
+				score=true;
+			}else{
+				document.getElementById("taskCenter").innerHTML="You are done";
 				socket.emit("quit");
 			}
-		}
-	};
-	socket.on('message',function(data){
-		if(data.message!=null){
-			console.log("got message");
-			console.log(data.message);
-			score=false;
-
 		}else{
-			console.log("Problem",data);
+			score=false;
+			task.style.zIndex="11";
 		}
+	}
 		
-	});
 }

@@ -7,12 +7,18 @@ html
       script(type='text/javascript')
     body(margin="auto")
       div.tabletLayout
-        div.back
-          a(href="/")
-            img.backIcon(src="/img/icons-all/backicon.png")
-        div.centeredPatient
+        div#pretask 
+          div.back
+            a(href="/")
+              img.backIcon(src="/img/icons-all/backicon.png")
+          div.centeredPatient
+              div.centered
+                p#taskCenter You have repetitions left
+          div#start
+              div.centered
+                p Next
+        div#task
+          div.centeredTask
             div.centered
-              p#taskCenter You have repetitions left
-        div#start
-            div.centered
-              p Next
+              p#rep 
+              p#tasktext Start

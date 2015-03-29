@@ -1,18 +1,5 @@
 
-1. Connections: just a brief message to acknowledge there is a connection
-
-//Client
-{
-	type:"Connection",
-}
-
-//Server
-{
-	type:"Connection",
-	isConnected:true
-}
-
-2. Check to see if case is connected
+Check to see if case is connected
 
 //Client
 {
