@@ -17,15 +17,17 @@ var client = net.connect(8888,'localhost',function(){
 var io = require('socket.io').listen(app.listen(3000));
 client.on('data', function(data) {
   console.log(data.toString());
-  var obj=JSON.parse(data.toString());
-  if(obj.type==="SystemReady"){
-  	curTaskID=obj.taskID;
-  }
   io.emit('message', { message: data.toString() });
 });
+function setupConnection(){
+	net.connect(8888,'localhost',function(){
+	console.log('Connected');
+});
+}
 client.on('error',function(err){
 	console.log(err);
-})
+	setTimeout(setupConnection,10000);
+});
 app.use(express.static(__dirname+"/public"));
 app.set('views', './views');
 app.set('view engine', 'jade');
