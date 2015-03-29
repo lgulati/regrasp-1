@@ -29,6 +29,7 @@ window.onload=function(){
 		if(!score){
 			if(count>0){
 				document.getElementById("taskCenter").innerHTML="You have "+count.toString()+" repetitions left";
+				socket.emit("systemReady");
 				score=true;
 			}else{
 				document.getElementById("taskCenter").innerHTML="You are done";

@@ -6,12 +6,15 @@ var app = express();
 var http=require('http').Server(app);
 var socket = require('socket.io')(http);
 var net = require('net');
+var client=new net.Socket();
 var curTaskID=-1;
 /*var client = net.connect(8888,'128.237.166.175',function(){
 	console.log('Connected');
 });*/
+var PORT=8888;
+var HOST='localhost';
 //handle send or receive failures and connection
-var client = net.connect(8888,'localhost',function(){
+client.connect(8888,'localhost',function(){
 	console.log('Connected');
 });
 var io = require('socket.io').listen(app.listen(3000));
@@ -26,7 +29,14 @@ function setupConnection(){
 }
 client.on('error',function(err){
 	console.log(err);
-	setTimeout(setupConnection,10000);
+	while(err.code == 'ECONNREFUSED'){
+		client.setTimeout(1000,function(){
+			client.connect(PORT,HOST,function(){
+				console.log("reconnected worked");
+			});
+		});
+	}
+	//setTimeout(setupConnection,10000);
 });
 app.use(express.static(__dirname+"/public"));
 app.set('views', './views');
