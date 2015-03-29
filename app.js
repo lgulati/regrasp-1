@@ -12,9 +12,10 @@ var curTaskID=-1;
 	console.log('Connected');
 });*/
 var PORT=8888;
-var HOST='localhost';
+var HOST='128.237.173.43';
+//var HOST='localhost';
 //handle send or receive failures and connection
-client.connect(8888,'localhost',function(){
+client.connect(PORT,HOST,function(){
 	console.log('Connected');
 });
 var io = require('socket.io').listen(app.listen(3000));
@@ -22,14 +23,10 @@ client.on('data', function(data) {
   console.log(data.toString());
   io.emit('message', { message: data.toString() });
 });
-function setupConnection(){
-	net.connect(8888,'localhost',function(){
-	console.log('Connected');
-});
-}
 client.on('error',function(err){
 	console.log(err);
-	if(err.code == 'ECONNREFUSED'){
+	if(err.code == 'ECONNREFUSED'||'ECONNRESET'){
+		console.log("HERE");
 		client.setTimeout(1000,function(){
 			client.connect(PORT,HOST,function(){
 			});
