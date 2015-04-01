@@ -3,7 +3,7 @@ window.onload=function(){
 	var taskLoad=false;
 	var waitingForScore=true;
 	var socket=io();
-	var count=3;
+	var count=4;
 	var done =false;
 	var progress = [5];
 	var rep=4-count;
@@ -14,12 +14,20 @@ window.onload=function(){
 	function enableEnd(){
 		endReady=true;
 	}
+	var score;
 	var intask=document.getElementById("task");
 	var pretask=document.getElementById("pretask");
 	socket.on('message',function(data){
 		if(data.message!=null){
+
 			var obj=JSON.parse(data.message);
-			var score=obj.score1;
+			if (count>=2){
+				score=obj.score1;
+			}else{
+				score=obj.score2;
+
+			}
+			
 			rep=4-count;
 			progress[rep]=score;
 			var svgfile=document.getElementById("scoreImage");
