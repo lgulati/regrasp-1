@@ -8,12 +8,13 @@ var socket = require('socket.io')(http);
 var net = require('net');
 var client=new net.Socket();
 var curTaskID=-1;
+var ak="128.237.208.246"
 /*var client = net.connect(8888,'128.237.166.175',function(){
 	console.log('Connected');
 });*/
 var PORT=8888;
 //var HOST='128.237.173.43';
-var HOST='localhost';
+var HOST=ak;
 //handle send or receive failures and connection
 client.connect(PORT,HOST,function(){
 	console.log('Connected');
@@ -72,19 +73,19 @@ io.on('connection', function (socket) {
 	console.log("CONNECTIONS");
 	socket.on('enableJSON',function(){
 		console.log("enable");
-		//client.write(enable);
+		client.write(enable);
 
 	});
 	socket.on('disableJSON',function(){
-		//client.write(disable);
+		client.write(disable);
 	});
 	socket.on('caseConnect',function(){
-		//client.write(caseConnect);
+		client.write(caseConnect);
 		console.log(caseConnect);
 	});
 	socket.on('systemReady',function(){
 		console.log(systemReady);
-		//client.write(systemReady);
+		client.write(systemReady);
 	});
 	socket.on('objectplaced',function(){
 		console.log(objectplaced+curTaskID.toString()+"}");
@@ -92,32 +93,32 @@ io.on('connection', function (socket) {
 	});
 
 	socket.on('startTask',function(){
-		//client.write(startTask);
+		client.write(startTask);
 		console.log(startTask);
 
 	});
 	socket.on('resetTask',function(){
-		//client.write(resetTask);
+		client.write(resetTask);
 		console.log(resetTask);
 
 	});
 	socket.on('endTask',function(){
-		//client.write(endTask);
+		client.write(endTask);
 		console.log(endTask);
 
 	});
 	socket.on('completeTask',function(){
-		////client.write(endTask);
+		//client.write(endTask);
 		console.log(completeTask);
 
 	});
 	socket.on('beginTask',function(){
-		//client.write(endTask);
+		client.write(endTask);
 		console.log(beginTask);
 
 	});
 	socket.on('quit',function(){
-		//client.write(quit);
+		client.write(quit);
 		console.log(quit);
 
 	});
