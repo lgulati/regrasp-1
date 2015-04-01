@@ -8,6 +8,9 @@
 html{
 	background-color:  #e9e9f4;
 }
+#repetitions{
+	
+}
 .homecontainer{
 	text-align: center;
 	width:100%;
@@ -17,13 +20,21 @@ html{
 	font-family:"Monserat";
 	font-size:36pt;
 } 
+#scoreResonse{
+
+}
+#scoreValue{
+	font-size:60pt;
+}
+#resetObjects{
+	font-size:30pt;
+}
 
 
 .icon{
 	text-align: center;
 	height: 1000px;
 	width: 1000px;
-
 
 }
 .caption{
@@ -49,12 +60,18 @@ html{
 	position:relative;
 }
 .back{
-	margin-left:30px;
-	margin:auto;
-	margin-top:20px;
-	width:10%;
+	display:table;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align: center;
+	height:100%;	
+	width:15%;
+	background-color:#f3284e;;
 	float:left;
 
+}
+#count{
+	font-size:90pt;
 }
 #rep{
 	font-size:22pt;
@@ -85,10 +102,9 @@ html{
 	width: 33.3%;
 }
 .backIcon{
-	margin-left:10px;
-	padding:15px;
-	height:100px;
-	width:100px;
+	display:table-cell;
+	vertical-align:middle;
+
 }
 #nextStepTest{
 	background-color:#97e157;
@@ -106,7 +122,7 @@ html{
 .nextStep{
 	background-color:#97e157;
 	height:100%;
-	width:30%;
+	width:15%;
 	float:left;
 	margin-top:auto;
 	margin-bottom:auto;
@@ -117,7 +133,7 @@ html{
 #start{
 	background-color:#97e157;
 	height:100%;
-	width:30%;
+	width:15%;
 	float:left;
 	margin-top:auto;
 	margin-bottom:auto;
@@ -160,7 +176,8 @@ html{
 	color:#d22848;
 	font-size:36pt;
 	float:left;
-	width: 60%;
+	z-index:10;
+	width: 70%;
 }
 #pretask{
 	position:absolute;
@@ -213,3 +230,4 @@ html,body{
 	float:left;
 	width: 100%;
 }
+

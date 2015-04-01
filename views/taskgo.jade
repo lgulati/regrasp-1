@@ -2,21 +2,36 @@ html
   head
     title=title
     link(href='/css/style.css', rel='stylesheet')
+    link(href='/css/circle.css', rel='stylesheet')
     script(src='/socket.io/socket.io.js')
     script(src='/js/task.js')
       script(type='text/javascript')
     body(margin="auto")
       div.tabletLayout
         div#pretask 
-          div.back
-            a(href="/")
-              img.backIcon(src="/img/icons-all/backicon.png")
+          a(href="/")
+            div.back
+              div.backIcon
+               img(src="../img/icons-all/backicon.png")
           div.centeredPatient
               div.centered
-                p#taskCenter You have repetitions left
+                div.image         
+                  object#scoreImage(data="../img/icons-all/slice-full.svg" ftype="image/svg+xml")  
+                  div.scoreArea
+                    div#repetitions
+                      span#scoreText You have
+                      br
+                      span#count 3
+                      br
+                      more to go!
+                    div#scoreResponse
+                      span#scoreValue Hold on
+                      br
+                      span#resetObjects Score is loading
           div#start
               div.centered
-                p Next
+                div.forward
+                  img(src="../img/icons-all/forward.png")
         div#task
           div.centeredTask
             div.centered

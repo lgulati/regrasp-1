@@ -9,11 +9,7 @@ public class ServerMain
 	String caseconnected="{\"type\" : \"CaseConnection\",\"isConnected\" : true}";
 	String json=
 	"{\"type\" : \"event\",\"testID\" : 12345,\"objects\" : [{\"id\" : 123,\"type\" : \"hand\",\"x\" : 0.2341,\"y\" : 0.6521,\"z\" : 0.1254},{\"id\" : 124,\"type\" : \"object\",\"x\" : 0.4245,\"y\" : 0.4234,\"z\" : 0.4246}]}";
-    String score1="{\"score1\" : 1}";
-    String score2="{\"score1\" : 2}";
-    String score3="{\"score1\" : 3}";
-    String score4="{\"score1\" : 4}";
-    String score5="{\"score1\" : 5}";
+    String score1="{\"score1\" : 3}";
 	public static void main(String[] args)
     {
         new ServerMain();
@@ -48,16 +44,6 @@ public class ServerMain
             		output.println(caseconnected);
             	}else if(message.equals("c")){
             		output.println(systemready);
-            	}else if(message.equals("1")){
-            		output.println(score1);
-            	}else if(message.equals("2")){
-            		output.println(score2);
-            	}else if(message.equals("3")){
-            		output.println(score3);
-            	}else if(message.equals("4")){
-            		output.println(score4);
-            	}else if(message.equals("5")){
-            		output.println(score5);
             	}
                 //This will wait until a line of text has been sent
                 System.out.println(message);
