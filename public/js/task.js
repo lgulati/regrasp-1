@@ -5,9 +5,11 @@ window.onload=function(){
 	var socket=io();
 	var count=4;
 	var done =false;
+	var scoretimedout=false;
 	var progress = [5];
 	var rep=4-count;
 	var exercise=1;
+	var gotScore=false;
 	document.getElementById("repetitions").style.display="none";
 	var start=false;
 	var scorewaiting=false;
@@ -19,13 +21,31 @@ window.onload=function(){
 		pretask.style.visibility="hidden";
 		var svgfile=document.getElementById("scoreImage");
 		var svgContent=svgfile.contentDocument;
-		var i=4-count;
-		var cirID="circle"+rep.toString();
-		svgContent.getElementById(cirID).style.fill="#ffffff";
+		if(!waitingForScore){
+			var i=4-count;
+			waitingForScore=true;
+			var cirID="circle"+rep.toString();
+			svgContent.getElementById(cirID).style.fill="#ffffff";
+		}
 
 	}
 	function enableEnd(){
 		endReady=true;
+	}
+	function scoreTimeout(){
+		if(!gotScore){
+			rep=4-count;
+			updateCurrentScore(-1);
+		}
+		//More iterations
+
+		if(count>0){
+			document.getElementById("resetObjects").innerHTML="Reset your objects.";
+		}else{
+			done=true;
+			document.getElementById("resetObjects").innerHTML="Task is done.";
+		}
+		waitingForScore=false;
 	}
 	function clearCircles(){
 		var svgfile=document.getElementById("scoreImage");
@@ -64,6 +84,9 @@ window.onload=function(){
 		}else if(score==5){
 			response="Excellent work";
 			hex="#6b86db";
+		}else {
+			response="No score available";
+			hex="#ffffff";
 		}
 		return {
 			hex: hex,
@@ -75,6 +98,7 @@ window.onload=function(){
 	var pretask=document.getElementById("pretask");
 	socket.on('message',function(data){
 		if(data.message!=null){
+			gotScore=true;
 			var obj=JSON.parse(data.message);
 			if (exercise==1){
 				score=obj.score1;
@@ -82,9 +106,7 @@ window.onload=function(){
 				score=obj.score2;
 			}
 			rep=4-count;
-			if(score>=0){
-				document.getElementById("back").style.visibility="visible";
-			document.getElementById("start").style.visibility="visible";
+			if(score!=null){
 				updateCurrentScore(score);
 				//More iterations
 				if(count>0){
@@ -111,13 +133,12 @@ window.onload=function(){
 		document.getElementById("resetObjects").innerHTML="Score is loading.";
 		document.getElementById("scoreResponse").style.display="";
 		document.getElementById("repetitions").style.display="none";
+		setTimeout(scoreTimeout,3000);
 		intask.style.backgroundColor='#97e157';
 		intask.style.display="hidden";
 		intask.style.zIndex="9";
 		pretask.style.visibility="visible";
 		intask.style.visibility="hidden";
-		document.getElementById("back").style.visibility="hidden";
-		document.getElementById("start").style.visibility="hidden";
 
 	}
 	function resetStartScreen(){
@@ -132,6 +153,7 @@ window.onload=function(){
 			count-=1;
 			scoreLoadingScreen();
 			resetStartScreen();
+			gotScore=false;
 			socket.emit("endTask");
 			//Reset Start Screen		
 			if(count>0){
@@ -161,7 +183,6 @@ window.onload=function(){
 		}else{
 			if(done){
 				count=4;
-				alert("HER");
 				done=false;
 				document.getElementById("scoreResponse").style.display="None";
 				document.getElementById("repetitions").style.display="";
