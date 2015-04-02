@@ -7,11 +7,31 @@ window.onload=function(){
 	var done =false;
 	var progress = [5];
 	var rep=4-count;
+	var exercise=1;
 	document.getElementById("repetitions").style.display="none";
 	var start=false;
 	var scorewaiting=false;
 	function enableEnd(){
 		endReady=true;
+	}
+	function clearCircles(){
+		var svgfile=document.getElementById("scoreImage");
+		var svgContent=svgfile.contentDocument;
+		for( i=1;i<=4;i++){
+			var cirID="circle"+i.toString();
+			svgContent.getElementById(cirID).style.fill="#ffffff";
+
+		}
+	}
+	function updateCurrentScore(score){
+		var svgfile=document.getElementById("scoreImage");
+		var svgContent=svgfile.contentDocument;
+		var cirID="circle"+rep.toString();
+		var hexResp=scoreToValues(score);
+		var hex=hexResp.hex;
+		var response=hexResp.response;
+		svgContent.getElementById(cirID).style.fill=hex;
+		document.getElementById("scoreValue").innerHTML=response;
 	}
 	function scoreToValues(score){
 		var hex="";
@@ -43,23 +63,17 @@ window.onload=function(){
 	socket.on('message',function(data){
 		if(data.message!=null){
 			var obj=JSON.parse(data.message);
-			if (count>=2){
+			if (exercise==1){
 				score=obj.score1;
 			}else{
 				score=obj.score2;
 			}
 			rep=4-count;
 			if(score>=0){
-				var svgfile=document.getElementById("scoreImage");
-				var svgContent=svgfile.contentDocument;
-				var cirID="circle"+rep.toString();
-				var hexResp=scoreToValues(score);
-				var hex=hexResp.hex;
-				var response=hexResp.response;
-				svgContent.getElementById(cirID).style.fill=hex;
-				document.getElementById("scoreValue").innerHTML=response;
+				updateCurrentScore(score);
+				//More iterations
 				if(count>0){
-				document.getElementById("resetObjects").innerHTML="Reset your objects.";
+					document.getElementById("resetObjects").innerHTML="Reset your objects.";
 				}else{
 					done=true;
 					document.getElementById("resetObjects").innerHTML="Task is done.";
@@ -69,29 +83,43 @@ window.onload=function(){
 		}
 
 	});
+
+	function endScreenOn(){
+		task.style.backgroundColor='#f3284e';
+		endReady=false;
+		setTimeout(enableEnd,2000);
+		document.getElementById("tasktext").innerHTML="Stop";
+		start=true;
+	}
+	function scoreLoadingScreen(){
+		document.getElementById("scoreValue").innerHTML="Hold on";
+		document.getElementById("resetObjects").innerHTML="Score is loading.";
+		document.getElementById("scoreResponse").style.display="";
+		intask.style.backgroundColor='#97e157';
+		intask.style.display="hidden";
+		intask.style.zIndex="9";
+		pretask.style.visibility="visible";
+		intask.style.visibility="hidden";
+
+	}
+	function resetStartScreen(){
+		document.getElementById("tasktext").innerHTML="Start";
+		start=false;
+	}
 	task.onclick=function(){
 		if(!start){
 			socket.emit("startTask");
-			task.style.backgroundColor='#f3284e';
-			endReady=false;
-			setTimeout(enableEnd,2000);
-			document.getElementById("tasktext").innerHTML="Stop";
-			start=true;
+			endScreenOn();
 		}else if(endReady){
 			count-=1;
-			document.getElementById("scoreValue").innerHTML="Hold on";
-			document.getElementById("resetObjects").innerHTML="Score is loading.";
+			scoreLoadingScreen();
+			resetStartScreen();
 			socket.emit("endTask");
-			document.getElementById("scoreResponse").style.display="";
-			intask.style.backgroundColor='#97e157';
-			document.getElementById("tasktext").innerHTML="Start";
-			start=false;
-			intask.style.display="hidden";
-			intask.style.zIndex="9";
-			pretask.style.display="visible";
-			if(count>=0){
+			//Reset Start Screen		
+			if(count>0){
 				document.getElementById("count").innerHTML=count;
 			}else{
+				document.getElementById("count").innerHTML=4;
 			}
 
 		}
@@ -102,21 +130,34 @@ window.onload=function(){
 			document.getElementById("repetitions").style.display="";
 			scorewaiting= true;
 			if(count<=0){
-				//document.getElementById("repetitions").innerHTML="<span>You are done</span>";
-				done=true;
-				socket.emit("quit");
+				count=4;
+				done=false;
+				document.getElementById("scoreResponse").style.display="None";
+				document.getElementById("repetitions").style.display="";
+				document.getElementById("count").innerHTML=count;
+				clearCircles();
+				exercise+=1;
 			}else{
 				document.getElementById("scoreText").innerHTML="You have";
 			}
 		}else{
-			scorewaiting=false;
-			waitingForScore=true;
-			socket.emit("systemReady");
-			intask.style.zIndex="13";
-			intask.style.display="visible";
-			pretask.style.display="hidden";
-			document.getElementById("repetitions").style.display="none";
-		}
+			if(done){
+				count=4;
+				alert("HER");
+				done=false;
+				document.getElementById("scoreResponse").style.display="None";
+				document.getElementById("repetitions").style.display="";
+				document.getElementById("count").innerHTML=count;
+			}else{
+					scorewaiting=false;
+					waitingForScore=true;
+					socket.emit("systemReady");
+					intask.style.zIndex="13";
+					intask.style.visibility="visible";
+					pretask.style.visibility="hidden";
+					document.getElementById("repetitions").style.display="none";
+				}
+			}
 	}
 		
 }
