@@ -100,7 +100,7 @@ window.onload=function(){
 		if(data.message!=null){
 			gotScore=true;
 			var obj=JSON.parse(data.message);
-			if (exercise==1){
+			if ((exercise%2)==1){
 				score=obj.score1;
 			}else{
 				score=obj.score2;
