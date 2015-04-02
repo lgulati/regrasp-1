@@ -13,7 +13,15 @@ window.onload=function(){
 	var scorewaiting=false;
 	document.getElementById("back").onclick=function(){
 		socket.emit("resetTask");
-		document.location.href="/";
+		count+=1;
+		intask.style.zIndex="13";
+		intask.style.visibility="visible";
+		pretask.style.visibility="hidden";
+		var svgfile=document.getElementById("scoreImage");
+		var svgContent=svgfile.contentDocument;
+		var i=4-count;
+		var cirID="circle"+rep.toString();
+		svgContent.getElementById(cirID).style.fill="#ffffff";
 
 	}
 	function enableEnd(){
@@ -75,6 +83,8 @@ window.onload=function(){
 			}
 			rep=4-count;
 			if(score>=0){
+				document.getElementById("back").style.visibility="visible";
+			document.getElementById("start").style.visibility="visible";
 				updateCurrentScore(score);
 				//More iterations
 				if(count>0){
@@ -100,11 +110,14 @@ window.onload=function(){
 		document.getElementById("scoreValue").innerHTML="Hold on";
 		document.getElementById("resetObjects").innerHTML="Score is loading.";
 		document.getElementById("scoreResponse").style.display="";
+		document.getElementById("repetitions").style.display="none";
 		intask.style.backgroundColor='#97e157';
 		intask.style.display="hidden";
 		intask.style.zIndex="9";
 		pretask.style.visibility="visible";
 		intask.style.visibility="hidden";
+		document.getElementById("back").style.visibility="hidden";
+		document.getElementById("start").style.visibility="hidden";
 
 	}
 	function resetStartScreen(){

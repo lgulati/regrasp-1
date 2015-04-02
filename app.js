@@ -11,10 +11,10 @@ var curTaskID=-1;
 /*var client = net.connect(8888,'128.237.166.175',function(){
 	console.log('Connected');
 });*/
-//var HOST='localhost';
+var HOST='localhost';
 var PORT=8888;
 //var HOST='128.237.173.43';
-var HOST='128.237.208.246';
+//var HOST='128.237.208.246';
 //handle send or receive failures and connection
 client.connect(PORT,HOST,function(){
 	console.log('Connected');
