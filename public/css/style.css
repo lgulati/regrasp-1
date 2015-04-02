@@ -59,7 +59,7 @@ html{
 	margin:0;
 	position:relative;
 }
-.back{
+#back{
 	display:table;
 	margin-top:auto;
 	margin-bottom:auto;

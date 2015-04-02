@@ -11,6 +11,11 @@ window.onload=function(){
 	document.getElementById("repetitions").style.display="none";
 	var start=false;
 	var scorewaiting=false;
+	document.getElementById("back").onclick=function(){
+		socket.emit("resetTask");
+		document.location.href="/";
+
+	}
 	function enableEnd(){
 		endReady=true;
 	}
