@@ -65,10 +65,8 @@ var enable="{\"type\" : \"request\",\"enableEvent\": true}";
 var quit="{\"type\" : \"quit\"}";
 var disable="{\"type\" : \"request\",\"enableEvent\": false}";
 var caseConnect="{\"type\" : \"CaseConnected\"}";
-var systemReady="{\"type\" : \"SystemReady\"}";
 var objectplaced="{\"type\" : \"ObjectsPlaced\"}";
 var beginTask="{\"type\" : \"BeginTask\"}";
-var completeTask="{\"type\" : \"CompleteTask\",\"attempt\" : ";
 io.on('connection', function (socket) {
 	console.log("CONNECTIONS");
 	socket.on('enableJSON',function(){
@@ -76,20 +74,10 @@ io.on('connection', function (socket) {
 		client.write(enable);
 
 	});
-	socket.on('disableJSON',function(){
-		client.write(disable);
-	});
-	socket.on('caseConnect',function(){
-		client.write(caseConnect);
-		console.log(caseConnect);
-	});
-	socket.on('systemReady',function(){
-		console.log(systemReady);
-		client.write(systemReady);
-	});
-	socket.on('objectplaced',function(){
-		console.log(objectplaced+curTaskID.toString()+"}");
 
+	socket.on('json',function(data){
+		console.log(data);
+		client.write(data);
 	});
 
 	socket.on('startTask',function(){
@@ -105,16 +93,6 @@ io.on('connection', function (socket) {
 	socket.on('endTask',function(){
 		client.write(endTask);
 		console.log(endTask);
-
-	});
-	socket.on('completeTask',function(){
-		//client.write(endTask);
-		console.log(completeTask);
-
-	});
-	socket.on('beginTask',function(){
-		client.write(endTask);
-		console.log(beginTask);
 
 	});
 	socket.on('quit',function(){

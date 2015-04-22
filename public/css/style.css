@@ -9,6 +9,7 @@ html{
 	background-color:  #e9e9f4;
 }
 #repetitions{
+	display:"";
 	
 }
 .homecontainer{
@@ -20,7 +21,8 @@ html{
 	font-family:"Monserat";
 	font-size:36pt;
 } 
-#scoreResonse{
+#scoreResponse{
+
 
 }
 #scoreValue{
@@ -184,7 +186,7 @@ html{
 	z-index:10;
 	width:100%;
 	height:100%;
-	visibility:hidden;
+	visibility:visible;
 	background-color:  #e9e9f4;
 
 
@@ -194,6 +196,7 @@ html{
 }
 #task{
 	position:absolute;
+	visibility:hidden;
 	display:table;
 	width:100%;
 	height:100%;
