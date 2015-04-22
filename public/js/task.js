@@ -5,8 +5,7 @@ window.onload=function(){
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
 	var endTask="{\"type\" : \"endTask\"}";
-	var systemReady="{\"type\" : \"SystemReady\"}";
-	var waitingForScore=true;
+	var systemReady="{\"type\" : \"SystemReady\",\"task\" : ";
 	var intask=document.getElementById("task");
 	var pretask=document.getElementById("pretask");
 	var socket=io();
@@ -200,7 +199,7 @@ window.onload=function(){
 			}else{
 					scorewaiting=false;
 					waitingForScore=true;
-					socket.emit("json",systemReady);
+					socket.emit("json",systemReady+exercise.toString()+"}");
 					intask.style.zIndex="13";
 					intask.style.visibility="visible";
 					pretask.style.visibility="hidden";
