@@ -199,7 +199,7 @@ window.onload=function(){
 			}else{
 					scorewaiting=false;
 					waitingForScore=true;
-					socket.emit("json",systemReady+exercise.toString()+"}");
+					socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 					intask.style.zIndex="13";
 					intask.style.visibility="visible";
 					pretask.style.visibility="hidden";
