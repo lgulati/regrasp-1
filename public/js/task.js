@@ -1,6 +1,4 @@
 window.onload=function(){
-	document.getElementById("scoreResponse").style.display="None";
-	document.getElementById("repetitions").style.display="";
 	var taskLoad=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
@@ -13,31 +11,40 @@ window.onload=function(){
 	var total=3;
 	var done =false;
 	var scoretimedout=false;
+	var endReady=false;
 	var rep=3-count;
 	var exercise=1;
-	intask.style.visibility="hidden";
-	pretask.style.visibility="visible";
 	document.getElementById("count").innerHTML=total;
 	var gotScore=false;
 	var start=false;
 	var scorewaiting=false;
-	
-	document.getElementById("back").onclick=function(){
-		socket.emit("json",resetTask);
-		count+=1;
+	var taskReady=false;
+	var repsScreen=false;
+	function taskScreenOn(){
 		intask.style.zIndex="13";
 		intask.style.visibility="visible";
 		pretask.style.visibility="hidden";
-		var svgfile=document.getElementById("scoreImage");
-		var svgContent=svgfile.contentDocument;
-		if(!waitingForScore){
-			var i=total-count;
-			waitingForScore=true;
-			var cirID="circle"+rep.toString();
-			svgContent.getElementById(cirID).style.fill="#ffffff";
-		}
-
 	}
+	function showReps(){
+		document.getElementById("repetitions").style.display="block";
+		document.getElementById("scoreResponse").style.display="none";
+	}
+	
+	document.getElementById("start").onclick=function(){
+		if(!taskReady){
+			taskReady=true;
+			taskScreenOn();
+			if(count==total){
+				clearCircles();
+			}
+			socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
+		}else if(repsScreen){
+			repsScreen=false;
+			taskReady=false;
+			showReps();
+		}
+	}
+
 	function enableEnd(){
 		endReady=true;
 	}
@@ -45,15 +52,21 @@ window.onload=function(){
 		if(!gotScore){
 			rep=total-count;
 			updateCurrentScore(-1);
+			repsScreen=true;
 		}
 
+	}
+
+	function updateCountScreen(){
 		if(count>0){
 			document.getElementById("resetObjects").innerHTML="Reset your objects.";
 		}else{
 			done=true;
+			count=total;
+			exercise+=1;
 			document.getElementById("resetObjects").innerHTML="Task is done.";
 		}
-		waitingForScore=false;
+		document.getElementById("count").innerHTML=count;
 	}
 	function clearCircles(){
 		var svgfile=document.getElementById("scoreImage");
@@ -61,7 +74,6 @@ window.onload=function(){
 		for( i=1;i<=total;i++){
 			var cirID="circle"+i.toString();
 			svgContent.getElementById(cirID).style.fill="#ffffff";
-
 		}
 	}
 	function updateCurrentScore(score){
@@ -73,6 +85,8 @@ window.onload=function(){
 		var response=hexResp.response;
 		svgContent.getElementById(cirID).style.fill=hex;
 		document.getElementById("scoreValue").innerHTML=response;
+		updateCountScreen();
+		repsScreen=true;
 	}
 	function scoreToValues(score){
 		var hex="";
@@ -107,22 +121,9 @@ window.onload=function(){
 			gotScore=true;
 			var obj=JSON.parse(data.message);
 			score=obj.score3;
-			/*if ((exercise%2)==1){
-				score=obj.score1;
-			}else{
-				score=obj.score2;
-			}*/
 			rep=total-count;
 			if(score!=null){
 				updateCurrentScore(score);
-				//More iterations
-				if(count>0){
-					document.getElementById("resetObjects").innerHTML="Reset your objects.";
-				}else{
-					done=true;
-					document.getElementById("resetObjects").innerHTML="Task is done.";
-				}
-				waitingForScore=false;
 			}
 		}
 
@@ -135,21 +136,20 @@ window.onload=function(){
 		document.getElementById("tasktext").innerHTML="Stop";
 		start=true;
 	}
+
 	function scoreLoadingScreen(){
-		document.getElementById("scoreResponse").style.display="";
 		document.getElementById("repetitions").style.display="none";
+		document.getElementById("scoreResponse").style.display="block";
 		document.getElementById("scoreValue").innerHTML="Hold on";
 		document.getElementById("resetObjects").innerHTML="Score is loading.";
-		document.getElementById("scoreResponse").style.display="";
-		document.getElementById("repetitions").style.display="none";
 		setTimeout(scoreTimeout,3000);
 		intask.style.backgroundColor='#97e157';
-		intask.style.display="hidden";
 		intask.style.zIndex="9";
 		pretask.style.visibility="visible";
 		intask.style.visibility="hidden";
 
 	}
+
 	function resetStartScreen(){
 		document.getElementById("tasktext").innerHTML="Start";
 		start=false;
@@ -165,48 +165,9 @@ window.onload=function(){
 			gotScore=false;
 			socket.emit("json",endTask);
 			//Reset Start Screen		
-			if(count>0){
-				document.getElementById("count").innerHTML=count;
-			}else{
-				document.getElementById("count").innerHTML=4;
-			}
 
 		}
 	}
-	document.getElementById("start").onclick=function(){
-		if(!scorewaiting){
-			document.getElementById("scoreResponse").style.display="None";
-			document.getElementById("repetitions").style.display="";
-			scorewaiting= true;
-			if(count<=0){
-				count=total;
-				done=false;
-				document.getElementById("scoreResponse").style.display="None";
-				document.getElementById("repetitions").style.display="";
-				document.getElementById("count").innerHTML=count;
-				clearCircles();
-				exercise+=1;
-			}else{
-				document.getElementById("scoreText").innerHTML="You have";
-			}
-		}else{
-			if(done){
-				count=total;
-				done=false;
-				document.getElementById("scoreResponse").style.display="None";
-				document.getElementById("repetitions").style.display="";
-				document.getElementById("count").innerHTML=count;
-			}else{
-					scorewaiting=false;
-					waitingForScore=true;
-					socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
-					intask.style.zIndex="13";
-					intask.style.visibility="visible";
-					pretask.style.visibility="hidden";
-					document.getElementById("scoreResponse").style.display="";
-					document.getElementById("repetitions").style.display="none";
-				}
-			}
-	}
-		
+
 }
+		

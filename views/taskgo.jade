@@ -9,10 +9,8 @@ html
     body(margin="auto")
       div.tabletLayout
         div#pretask 
-          div#back
-            div.backIcon
-             img(src="../img/icons-all/backicon.png")
           div.centeredPatient
+            div#taskArea
               div.centered
                 div.image         
                   object#scoreImage(data="../img/icons-all/fullcircle-thirds.svg" ftype="image/svg+xml")  
@@ -27,10 +25,10 @@ html
                       span#scoreValue Hold on
                       br
                       span#resetObjects Score is loading
-            div#start
-                div.centered
-                  div.forward
-                    img(src="../img/icons-all/forward.png")
+          div#start
+            div.centered
+              div.forward
+                img(src="../img/icons-all/forward.png")
         div#task
           div.centeredTask
             div.centered
