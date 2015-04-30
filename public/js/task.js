@@ -6,6 +6,8 @@ window.onload=function(){
 	var systemReady="{\"type\" : \"SystemReady\",\"task\" : ";
 	var intask=document.getElementById("task");
 	var pretask=document.getElementById("pretask");
+	var diagScreen=document.getElementById("diagram");
+	var taskArea=document.getElementById("taskArea");
 	var socket=io();
 	var count=3;
 	var total=3;
@@ -14,12 +16,22 @@ window.onload=function(){
 	var endReady=false;
 	var rep=3-count;
 	var exercise=1;
+	var diagramOn=true;
 	document.getElementById("count").innerHTML=total;
 	var gotScore=false;
 	var start=false;
 	var scorewaiting=false;
 	var taskReady=false;
 	var repsScreen=false;
+	var nextExercise=false;
+	function hideDiagram(){
+		diagScreen.style.visibility="hidden";
+		taskArea.style.visibility="visible";
+	}
+	function showDiagram(){
+		diagScreen.style.visibility="visible";
+		taskArea.style.visibility="hidden";
+	}
 	function taskScreenOn(){
 		intask.style.zIndex="13";
 		intask.style.visibility="visible";
@@ -31,7 +43,13 @@ window.onload=function(){
 	}
 	
 	document.getElementById("start").onclick=function(){
-		if(!taskReady){
+		if(diagramOn){
+			diagramOn=false;
+			hideDiagram();
+			showReps();
+			taskReady=false;
+		}
+		else if(!taskReady){
 			taskReady=true;
 			taskScreenOn();
 			if(count==total){
@@ -40,9 +58,9 @@ window.onload=function(){
 			socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 		}else if(repsScreen){
 			repsScreen=false;
-			taskReady=false;
-			showReps();
-		}
+			diagramOn=true;
+			showDiagram();
+		} 
 	}
 
 	function enableEnd(){
@@ -164,7 +182,7 @@ window.onload=function(){
 			resetStartScreen();
 			gotScore=false;
 			socket.emit("json",endTask);
-			//Reset Start Screen		
+		
 
 		}
 	}

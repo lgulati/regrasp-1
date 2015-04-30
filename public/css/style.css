@@ -210,7 +210,7 @@ html{
 	height:100%;
 	position:absolute;
 	z-index:12;
-	visibility:visible;
+	visibility:hidden;
 	float:left;
 	width:85%;
 
@@ -260,11 +260,9 @@ html,body{
 }
 
 #diagIMG{
-	-webkit-transform: scale(0.5); /* Saf3.1+, Chrome */
-	width:50%;
-	height:50%;
+	max-width: 70%;
 	display:block;
-    margin:auto;
+	margin:auto;
 
 }
 
