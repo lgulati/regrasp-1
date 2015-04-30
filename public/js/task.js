@@ -4,13 +4,17 @@ window.onload=function(){
 	var resetTask="{\"type\" : \"resetTask\"}";
 	var endTask="{\"type\" : \"endTask\"}";
 	var systemReady="{\"type\" : \"SystemReady\",\"task\" : ";
+	var taskSetupReq="{\"type\" : \"TaskSetup\",\"task\" : ";
 	var intask=document.getElementById("task");
 	var pretask=document.getElementById("pretask");
 	var diagScreen=document.getElementById("diagram");
 	var taskArea=document.getElementById("taskArea");
+	var objectSetup=document.getElementById("objectSetup");
 	var socket=io();
+	var scores=[];
 	var count=3;
 	var total=3;
+	var showGarden=false;
 	var done =false;
 	var scoretimedout=false;
 	var endReady=false;
@@ -24,9 +28,10 @@ window.onload=function(){
 	var taskReady=false;
 	var repsScreen=false;
 	var nextExercise=false;
+	var setup=false;
 	function hideDiagram(){
 		diagScreen.style.visibility="hidden";
-		taskArea.style.visibility="visible";
+		objectSetup.style.visibility="visible";
 	}
 	function showDiagram(){
 		diagScreen.style.visibility="visible";
@@ -41,13 +46,56 @@ window.onload=function(){
 		document.getElementById("repetitions").style.display="block";
 		document.getElementById("scoreResponse").style.display="none";
 	}
-	
+	function hideSetup(){
+		objectSetup.style.visibility="hidden";
+		taskArea.style.visibility="visible";
+	}
+	function setUpTimeOut(){
+		showReps();
+		hideSetup();
+		taskReady=false;
+		setup=false;
+		document.getElementById("start").style.display="";
+		objectSetup.style.width="85%";
+	}
+	function showLoading(){
+		objectSetup.style.width="100%";
+		document.getElementById("SetupText").innerHTML="Loading";
+		document.getElementById("start").style.display="none";
+	}
+	function createGarden(){
+		var totalScores=0;
+		for(var i=0;i<scores.length;i++){
+			var curScore=scores[i];
+			if(i%total==0){
+				if(curScore>0){
+					totalScores+=curScore;
+
+				}
+			}
+		}
+	}
+
 	document.getElementById("start").onclick=function(){
-		if(diagramOn){
+		//diagram goes to setup
+		if(showGarden){
+			showGarden=false;
+			createGarden();
+
+		}
+		else if(diagramOn){
 			diagramOn=false;
 			hideDiagram();
-			showReps();
-			taskReady=false;
+			//need to request setup here
+			setup=true;
+
+			//taskReady=false;
+		}else if(setup){
+			socket.emit("json",taskSetupReq+exercise.toString()+"}");
+			setup=false;
+			showLoading();
+			//setup=true;
+			setTimeout(setUpTimeOut,2000);
 		}
 		else if(!taskReady){
 			taskReady=true;
@@ -60,7 +108,7 @@ window.onload=function(){
 			repsScreen=false;
 			diagramOn=true;
 			showDiagram();
-		} 
+		}
 	}
 
 	function enableEnd(){
@@ -82,6 +130,7 @@ window.onload=function(){
 			done=true;
 			count=total;
 			exercise+=1;
+			//showGarden=true;
 			document.getElementById("resetObjects").innerHTML="Task is done.";
 		}
 		document.getElementById("count").innerHTML=count;
@@ -95,11 +144,13 @@ window.onload=function(){
 		}
 	}
 	function updateCurrentScore(score){
+		scores.push(score);
 		var svgfile=document.getElementById("scoreImage");
 		var svgContent=svgfile.contentDocument;
 		var cirID="circle"+rep.toString();
 		var hexResp=scoreToValues(score);
 		var hex=hexResp.hex;
+
 		var response=hexResp.response;
 		svgContent.getElementById(cirID).style.fill=hex;
 		document.getElementById("scoreValue").innerHTML=response;

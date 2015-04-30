@@ -12,6 +12,18 @@ html{
 	display:"";
 	
 }
+#objectSetup{
+	display:table;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align: center;
+	height:100%;
+	position:absolute;
+	z-index:12;
+	visibility:hidden;
+	float:left;
+	width:85%;
+}
 .homecontainer{
 	text-align: center;
 	width:100%;
