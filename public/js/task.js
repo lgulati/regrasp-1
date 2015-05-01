@@ -30,8 +30,10 @@ window.onload=function(){
 	var scorewaiting=false;
 	var taskReady=false;
 	var repsScreen=false;
+	var notChecked = false;
 	var nextExercise=false;
 	var setup=false;
+	var attempt=0;
 	function systemSetup(){
 		showReps();
 		hideSetup();
@@ -67,16 +69,29 @@ window.onload=function(){
 		taskArea.style.visibility="visible";
 	}
 	function setUpTimeOut(){
-		showReps();
-		hideSetup();
-		taskReady=false;
-		setup=false;
-		document.getElementById("start").style.display="";
-		objectSetup.style.width="85%";
+		if(notChecked){
+			attempt++;
+			setTimeout(setUpTimeOut,2000);
+			if(attempt==3){
+				attempt=0;
+				notChecked=false;
+				showReps();
+				hideSetup();
+				taskReady=false;
+				setup=false;
+				document.getElementById("SetupText").innerHTML="Task Setup";
+				document.getElementById("objectsUsed").style.display="";
+				document.getElementById("start").style.display="";
+				objectSetup.style.width="85%";
+			}else{
+				socket.emit("json",taskSetupReq+exercise.toString()+"}");
+			}
+		}
 	}
 	function showLoading(){
 		objectSetup.style.width="100%";
 		document.getElementById("SetupText").innerHTML="Loading";
+		document.getElementById("objectsUsed").style.display="none";
 		document.getElementById("start").style.display="none";
 	}
 	function createGarden(){
@@ -111,8 +126,10 @@ window.onload=function(){
 			setup=false;
 			showLoading();
 			checkForErrors=true;
+			attempt=0;
 			//setup=true;
-			//setTimeout(setUpTimeOut,2000);
+			notChecked=true;
+			setTimeout(setUpTimeOut,2000);
 		}
 		else if(!taskReady){
 			taskReady=true;
@@ -148,6 +165,7 @@ window.onload=function(){
 			done=true;
 			count=total;
 			exercise+=1;
+			document.getElementById("diagIMG").src="../img/icons-all/diagrams-4"+exercise.toString()+ ".png";
 			//showGarden=true;
 			document.getElementById("resetObjects").innerHTML="Task is done.";
 		}
@@ -168,7 +186,6 @@ window.onload=function(){
 		var cirID="circle"+rep.toString();
 		var hexResp=scoreToValues(score);
 		var hex=hexResp.hex;
-
 		var response=hexResp.response;
 		svgContent.getElementById(cirID).style.fill=hex;
 		document.getElementById("scoreValue").innerHTML=response;
@@ -214,6 +231,7 @@ window.onload=function(){
 					updateCurrentScore(score);
 				}
 			}else{
+				notChecked=false;
 				var errorType=0;
 				if(obj.error1==1){
 					errorType=1;
@@ -225,6 +243,8 @@ window.onload=function(){
 				if(errorType==0){
 					checkForErrors=false;
 					setup=false;
+					document.getElementById("SetupText").innerHTML="Task Setup";
+					document.getElementById("objectsUsed").style.display="block";
 					systemSetup();
 				}else{
 					setup=true;

@@ -4,7 +4,6 @@
 	font-weight: bold;
 	font-style: normal;
 }
-
 html{
 	background-color:  #e9e9f4;
 }
@@ -277,4 +276,7 @@ html,body{
 	margin:auto;
 
 }
-
+#objectsUsed{
+	display:block;
+	margin:auto;
+}
