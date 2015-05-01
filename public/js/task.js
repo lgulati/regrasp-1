@@ -45,7 +45,15 @@ window.onload=function(){
 	function errorScreen(error){
 		document.getElementById("start").style.display="";
 		objectSetup.style.width="85%";
-		document.getElementById("SetupText").innerHTML="Error "+error.toString();
+		var msg="";
+		if(error==1){
+			msg="Hand not in start zone";
+		}else if(error==2){
+			msg="Incorrect object placed on the mat";
+		}else{
+			msg="Object placed at incorrect location on the mat";
+		}
+		document.getElementById("SetupText").innerHTML=msg;
 	}
 	function hideDiagram(){
 		diagScreen.style.visibility="hidden";
@@ -233,11 +241,11 @@ window.onload=function(){
 			}else{
 				notChecked=false;
 				var errorType=0;
-				if(obj.error1==1){
+				if(obj.error1!=1){
 					errorType=1;
-				}else if(obj.error2==1){
+				}else if(obj.error2!=1){
 					errorType=2;
-				}else if(obj.error3==1){
+				}else if(obj.error3!=1){
 					errorType=3;
 				}
 				if(errorType==0){
