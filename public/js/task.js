@@ -5,6 +5,7 @@ window.onload=function(){
 	var endTask="{\"type\" : \"endTask\"}";
 	var systemReady="{\"type\" : \"SystemReady\",\"task\" : ";
 	var taskSetupReq="{\"type\" : \"TaskSetup\",\"task\" : ";
+		var taskDone="{\"type\" : \"TaskDone\",\"task\" : ";
 	var intask=document.getElementById("task");
 	var pretask=document.getElementById("pretask");
 	var diagScreen=document.getElementById("diagram");
@@ -105,6 +106,7 @@ window.onload=function(){
 			}
 			socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 		}else if(repsScreen){
+			socket.emit("json",taskDone+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 			repsScreen=false;
 			diagramOn=true;
 			showDiagram();
@@ -223,6 +225,7 @@ window.onload=function(){
 		document.getElementById("tasktext").innerHTML="Start";
 		start=false;
 	}
+
 	task.onclick=function(){
 		if(!start){
 			socket.emit("json",startTask+exercise.toString()+"}");
