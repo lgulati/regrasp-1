@@ -1,5 +1,6 @@
 window.onload=function(){
 	var taskLoad=false;
+	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
 	var endTask="{\"type\" : \"endTask\"}";
@@ -15,6 +16,7 @@ window.onload=function(){
 	var scores=[];
 	var count=3;
 	var total=3;
+	var checkForErrors=false;
 	var showGarden=false;
 	var done =false;
 	var scoretimedout=false;
@@ -30,6 +32,19 @@ window.onload=function(){
 	var repsScreen=false;
 	var nextExercise=false;
 	var setup=false;
+	function systemSetup(){
+		showReps();
+		hideSetup();
+		taskReady=false;
+		setup=false;
+		document.getElementById("start").style.display="";
+		objectSetup.style.width="85%";
+	}
+	function errorScreen(error){
+		document.getElementById("start").style.display="";
+		objectSetup.style.width="85%";
+		document.getElementById("SetupText").innerHTML="Error "+error.toString();
+	}
 	function hideDiagram(){
 		diagScreen.style.visibility="hidden";
 		objectSetup.style.visibility="visible";
@@ -95,8 +110,9 @@ window.onload=function(){
 			socket.emit("json",taskSetupReq+exercise.toString()+"}");
 			setup=false;
 			showLoading();
+			checkForErrors=true;
 			//setup=true;
-			setTimeout(setUpTimeOut,2000);
+			//setTimeout(setUpTimeOut,2000);
 		}
 		else if(!taskReady){
 			taskReady=true;
@@ -189,12 +205,32 @@ window.onload=function(){
 	var score;
 	socket.on('message',function(data){
 		if(data.message!=null){
-			gotScore=true;
 			var obj=JSON.parse(data.message);
-			score=obj.score3;
-			rep=total-count;
-			if(score!=null){
-				updateCurrentScore(score);
+			if(!checkForErrors){
+				gotScore=true;
+				score=obj.score3;
+				rep=total-count;
+				if(score!=null){
+					updateCurrentScore(score);
+				}
+			}else{
+				var errorType=0;
+				if(obj.error1==1){
+					errorType=1;
+				}else if(obj.error2==1){
+					errorType=2;
+				}else if(obj.error3==1){
+					errorType=3;
+				}
+				if(errorType==0){
+					checkForErrors=false;
+					setup=false;
+					systemSetup();
+				}else{
+					setup=true;
+					errorScreen(errorType);
+				}
+
 			}
 		}
 
