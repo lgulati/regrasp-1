@@ -13,7 +13,7 @@ var curTaskID=-1;
 });*/
 var HOST='localhost';
 var PORT=8888;
-//var HOST='128.237.173.43';
+//var HOST='128.237.221.1';
 //var HOST='128.237.208.246';
 //handle send or receive failures and connection
 client.connect(PORT,HOST,function(){

@@ -1,12 +1,14 @@
 window.onload=function(){
 	var taskLoad=false;
+	var setupTime=1000;
+	var scoreTime=1000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
 	var endTask="{\"type\" : \"endTask\"}";
 	var systemReady="{\"type\" : \"SystemReady\",\"task\" : ";
 	var taskSetupReq="{\"type\" : \"TaskSetup\",\"task\" : ";
-		var taskDone="{\"type\" : \"TaskDone\",\"task\" : ";
+	var taskDone="{\"type\" : \"TaskDone\",\"task\" : ";
 	var intask=document.getElementById("task");
 	var pretask=document.getElementById("pretask");
 	var diagScreen=document.getElementById("diagram");
@@ -32,11 +34,18 @@ window.onload=function(){
 	var repsScreen=false;
 	var notChecked = false;
 	var nextExercise=false;
+	var diagramLayout=false;
+	var svgfile=document.getElementById("objectsUsed");
+	var svgContent=svgfile.contentDocument;
+	var objects=svgContent.getElementsByClassName("ex1");
+	var lastObjects=[];
+	lastObjects.push(objects[0]);
 	var setup=false;
 	var attempt=0;
+	highlightObject();
 	function systemSetup(){
 		showReps();
-		hideSetup();
+		hideDiagram();
 		taskReady=false;
 		setup=false;
 		document.getElementById("start").style.display="";
@@ -46,6 +55,7 @@ window.onload=function(){
 		document.getElementById("start").style.display="";
 		objectSetup.style.width="85%";
 		var msg="";
+		document.getElementById("firstSetup").style.display="block";
 		if(error==1){
 			msg="Hand not in start zone";
 		}else if(error==2){
@@ -55,12 +65,17 @@ window.onload=function(){
 		}
 		document.getElementById("SetupText").innerHTML=msg;
 	}
-	function hideDiagram(){
-		diagScreen.style.visibility="hidden";
-		objectSetup.style.visibility="visible";
-	}
+
 	function showDiagram(){
 		diagScreen.style.visibility="visible";
+		objectSetup.style.visibility="hidden";
+	}
+	function hideDiagram(){
+		diagScreen.style.visibility="hidden";
+				taskArea.style.visibility="visible";
+	}
+	function showObjectSetup(){
+		objectSetup.style.visibility="visible";
 		taskArea.style.visibility="hidden";
 	}
 	function taskScreenOn(){
@@ -76,19 +91,32 @@ window.onload=function(){
 		objectSetup.style.visibility="hidden";
 		taskArea.style.visibility="visible";
 	}
+	function highlightObject(){
+		while(lastObjects.length>0){
+			var lastObj=lastObjects.pop();
+			lastObj.style.fill="none";
+		}
+		var svgfile=document.getElementById("objectsUsed");
+		var svgContent=svgfile.contentDocument;
+		var objects=svgContent.getElementsByClassName("ex"+exercise.toString());
+		for(var i=0;i<objects.length;i++){
+			objects[i].style.fill="#B3DD5F";
+			lastObjects.push(objects[i]);
+		}
+
+	}
 	function setUpTimeOut(){
 		if(notChecked){
 			attempt++;
-			setTimeout(setUpTimeOut,2000);
+			setTimeout(setUpTimeOut,setupTime);
 			if(attempt==3){
 				attempt=0;
 				notChecked=false;
-				showReps();
-				hideSetup();
-				taskReady=false;
-				setup=false;
-				document.getElementById("SetupText").innerHTML="Task Setup";
-				document.getElementById("objectsUsed").style.display="";
+				checkForErrors=false;
+				diagramLayout=true;
+				showDiagram();
+				document.getElementById("SetupText").innerHTML="Select highlighted Objects";
+				document.getElementById("objectsUsed").style.visibility="visible";
 				document.getElementById("start").style.display="";
 				objectSetup.style.width="85%";
 			}else{
@@ -99,7 +127,7 @@ window.onload=function(){
 	function showLoading(){
 		objectSetup.style.width="100%";
 		document.getElementById("SetupText").innerHTML="Loading";
-		document.getElementById("objectsUsed").style.display="none";
+		document.getElementById("firstSetup").style.display="none";
 		document.getElementById("start").style.display="none";
 	}
 	function createGarden(){
@@ -121,10 +149,16 @@ window.onload=function(){
 			showGarden=false;
 			createGarden();
 
+		}else if(diagramLayout){
+			systemSetup();
+			diagramLayout=false;
 		}
 		else if(diagramOn){
 			diagramOn=false;
-			hideDiagram();
+			document.getElementById("SetupText").innerHTML="Set up your object and hand";
+			document.getElementById("objectsUsed").style.visibility="hidden";
+			document.getElementById("firstSetup").style.display="block";
+			document.getElementById("firstSetup").src="../img/icons-all/diagrams-start"+exercise.toString()+".png";
 			//need to request setup here
 			setup=true;
 
@@ -137,20 +171,24 @@ window.onload=function(){
 			attempt=0;
 			//setup=true;
 			notChecked=true;
-			setTimeout(setUpTimeOut,2000);
+			setTimeout(setUpTimeOut,setupTime);
 		}
 		else if(!taskReady){
 			taskReady=true;
 			taskScreenOn();
 			if(count==total){
-				clearCircles();
+				//clearCircles();
 			}
 			socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 		}else if(repsScreen){
+
 			socket.emit("json",taskDone+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 			repsScreen=false;
 			diagramOn=true;
-			showDiagram();
+			if(count==total){
+				clearCircles();
+			}
+			showObjectSetup();
 		}
 	}
 
@@ -173,7 +211,8 @@ window.onload=function(){
 			done=true;
 			count=total;
 			exercise+=1;
-			document.getElementById("diagIMG").src="../img/icons-all/diagrams-4"+exercise.toString()+ ".png";
+			highlightObject();
+			document.getElementById("diagIMG").src="../img/icons-all/diagrams-ex"+exercise.toString()+ ".png";
 			//showGarden=true;
 			document.getElementById("resetObjects").innerHTML="Task is done.";
 		}
@@ -251,9 +290,11 @@ window.onload=function(){
 				if(errorType==0){
 					checkForErrors=false;
 					setup=false;
-					document.getElementById("SetupText").innerHTML="Task Setup";
-					document.getElementById("objectsUsed").style.display="block";
-					systemSetup();
+					document.getElementById("SetupText").innerHTML="Select the highlighted object";
+					document.getElementById("objectsUsed").style.visibility="visible";
+					showDiagram();
+					diagramLayout=true;
+					//systemSetup();
 				}else{
 					setup=true;
 					errorScreen(errorType);
@@ -265,10 +306,9 @@ window.onload=function(){
 	});
 
 	function endScreenOn(){
-		task.style.backgroundColor='#f3284e';
 		endReady=false;
-		setTimeout(enableEnd,2000);
-		document.getElementById("tasktext").innerHTML="Stop";
+		setTimeout(enableEnd,scoreTime);
+		document.getElementById("tasktext").innerHTML="Tap the Screen When Finished";
 		start=true;
 	}
 
@@ -277,7 +317,7 @@ window.onload=function(){
 		document.getElementById("scoreResponse").style.display="block";
 		document.getElementById("scoreValue").innerHTML="Hold on";
 		document.getElementById("resetObjects").innerHTML="Score is loading.";
-		setTimeout(scoreTimeout,3000);
+		setTimeout(scoreTimeout,scoreTime);
 		intask.style.backgroundColor='#97e157';
 		intask.style.zIndex="9";
 		pretask.style.visibility="visible";
