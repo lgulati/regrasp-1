@@ -14,6 +14,7 @@ window.onload=function(){
 	var diagScreen=document.getElementById("diagram");
 	var taskArea=document.getElementById("taskArea");
 	var objectSetup=document.getElementById("objectSetup");
+	var firstDiagram=document.getElementById("firstDiagram");
 	var socket=io();
 	var scores=[];
 	var count=3;
@@ -68,11 +69,11 @@ window.onload=function(){
 
 	function showDiagram(){
 		diagScreen.style.visibility="visible";
-		objectSetup.style.visibility="hidden";
+		firstDiagram.style.visibility="hidden";
 	}
 	function hideDiagram(){
 		diagScreen.style.visibility="hidden";
-				taskArea.style.visibility="visible";
+		taskArea.style.visibility="visible";
 	}
 	function showObjectSetup(){
 		objectSetup.style.visibility="visible";
@@ -115,18 +116,17 @@ window.onload=function(){
 				checkForErrors=false;
 				diagramLayout=true;
 				showDiagram();
-				document.getElementById("SetupText").innerHTML="Select highlighted Objects";
 				document.getElementById("objectsUsed").style.visibility="visible";
 				document.getElementById("start").style.display="";
-				objectSetup.style.width="85%";
+				firstDiagram.style.width="85%";
 			}else{
 				socket.emit("json",taskSetupReq+exercise.toString()+"}");
 			}
 		}
 	}
 	function showLoading(){
-		objectSetup.style.width="100%";
-		document.getElementById("SetupText").innerHTML="Loading";
+		firstDiagram.style.width="100%";
+		document.getElementById("firstDiagramText").innerHTML="Loading";
 		document.getElementById("firstSetup").style.display="none";
 		document.getElementById("start").style.display="none";
 	}
@@ -155,9 +155,10 @@ window.onload=function(){
 		}
 		else if(diagramOn){
 			diagramOn=false;
+			objectSetup.style.visibility="hidden";
+			firstDiagram.style.visibility="visible";
 			document.getElementById("SetupText").innerHTML="Set up your object and hand";
 			document.getElementById("objectsUsed").style.visibility="hidden";
-			document.getElementById("firstSetup").style.display="block";
 			document.getElementById("firstSetup").src="../img/icons-all/diagrams-start"+exercise.toString()+".png";
 			//need to request setup here
 			setup=true;
@@ -294,8 +295,7 @@ window.onload=function(){
 				if(errorType==0){
 					checkForErrors=false;
 					setup=false;
-					document.getElementById("SetupText").innerHTML="Select the highlighted object";
-					document.getElementById("objectsUsed").style.visibility="visible";
+					document.getElementById("firstDiagramText").innerHTML="Set up your object(s) and hand";
 					showDiagram();
 					diagramLayout=true;
 					//systemSetup();
