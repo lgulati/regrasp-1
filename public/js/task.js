@@ -1,6 +1,6 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=1000;
+	var setupTime=2000;
 	var scoreTime=1000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
@@ -64,7 +64,7 @@ window.onload=function(){
 		}else{
 			msg="Object placed at incorrect location on the mat";
 		}
-		document.getElementById("SetupText").innerHTML=msg;
+		document.getElementById("firstDiagramText").innerHTML=msg;
 	}
 
 	function showDiagram(){
