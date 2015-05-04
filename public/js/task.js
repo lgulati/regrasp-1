@@ -1,6 +1,6 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=2000;
+	var setupTime=200;
 	var scoreTime=1000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
@@ -15,6 +15,7 @@ window.onload=function(){
 	var taskArea=document.getElementById("taskArea");
 	var objectSetup=document.getElementById("objectSetup");
 	var firstDiagram=document.getElementById("firstDiagram");
+	var popup=document.getElementById("popupBoxOnePosition");	
 	var socket=io();
 	var scores=[];
 	var count=3;
@@ -36,9 +37,9 @@ window.onload=function(){
 	var notChecked = false;
 	var nextExercise=false;
 	var diagramLayout=false;
-	var svgfile=document.getElementById("objectsUsed");
-	var svgContent=svgfile.contentDocument;
-	var objects=svgContent.getElementsByClassName("ex1");
+	var svg=document.getElementById("objectsUsed");
+	var svgCont=svg.contentDocument;
+	var objects=svgCont.getElementsByClassName("ex1");
 	var lastObjects=[];
 	lastObjects.push(objects[0]);
 	var setup=false;
@@ -50,11 +51,11 @@ window.onload=function(){
 		taskReady=false;
 		setup=false;
 		document.getElementById("start").style.display="";
-		objectSetup.style.width="85%";
+		firstDiagram.style.width="85%";
 	}
 	function errorScreen(error){
 		document.getElementById("start").style.display="";
-		objectSetup.style.width="85%";
+		firstDiagram.style.width="85%";
 		var msg="";
 		document.getElementById("firstSetup").style.display="block";
 		if(error==1){
@@ -305,7 +306,7 @@ window.onload=function(){
 					//systemSetup();
 				}else{
 					setup=true;
-					errorScreen(errorType);
+					errorScreen(0);
 				}
 
 			}
@@ -352,6 +353,16 @@ window.onload=function(){
 
 		}
 	}
+	document.getElementById("video").onclick=function(){
+		popup.style.display="block";	
+
+	}
+	document.getElementById("exit").onclick=function(){
+		popup.style.display="none";	
+
+	}
+	
+
 
 }
 		

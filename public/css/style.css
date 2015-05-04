@@ -275,7 +275,7 @@ html,body{
 }
 
 #diagIMG{
-	max-width: 70%;
+	max-width: 85%;
 	display:block;
 	margin:auto;
 
@@ -308,4 +308,28 @@ html,body{
 #firstSetup_wrapper{
 	z-index:12;
 
+}
+#popupBoxOnePosition{
+	top: 0; left: 0; position: fixed; width: 100%; height: 100%;
+	background-color: rgba(0,0,0,0.7); display: none;
+}
+.popupBoxWrapper{
+	width: 1280px; margin: auto; text-align: left; height:820px;
+}
+.popupBoxContent{
+	background-color: #FFF; padding: 5px;
+	width:100%;
+	height:100%;
+}
+#video{
+	background-color:#FFFFFF;
+	padding:15px;
+}
+#exit{
+	width:1270px;
+	height:100px;
+	text-align:center;
+	padding:5px;
+	background-color:#d3284a;
+	color:#FFFFFF;
 }
