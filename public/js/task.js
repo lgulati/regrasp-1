@@ -1,7 +1,7 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=1000;
-	var scoreTime=1000;
+	var setupTime=100;
+	var scoreTime=100;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
@@ -181,14 +181,18 @@ window.onload=function(){
 			}
 			socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 		}else if(repsScreen){
-
 			socket.emit("json",taskDone+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
-			repsScreen=false;
-			diagramOn=true;
-			if(count==total){
-				clearCircles();
+			if(exercise<4){
+				repsScreen=false;
+				diagramOn=true;
+				if(count==total){
+					clearCircles();
+				}
+				showObjectSetup();
+			}else{
+				window.location.href="/";
 			}
-			showObjectSetup();
+
 		}
 	}
 
