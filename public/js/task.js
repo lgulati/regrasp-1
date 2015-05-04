@@ -1,7 +1,7 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=100;
-	var scoreTime=100;
+	var setupTime=1000;
+	var scoreTime=1000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
@@ -118,6 +118,10 @@ window.onload=function(){
 				showDiagram();
 				document.getElementById("objectsUsed").style.visibility="visible";
 				document.getElementById("start").style.display="";
+				document.getElementById("firstDiagramText").innerHTML="Set up your object(s) and hand";
+				document.getElementById("firstSetup").style.display="block";
+				document.getElementById("firstSetup").src="../img/icons-all/diagrams-start"+exercise.toString()+".png";
+				diagramLayout=true;
 				firstDiagram.style.width="85%";
 			}else{
 				socket.emit("json",taskSetupReq+exercise.toString()+"}");
