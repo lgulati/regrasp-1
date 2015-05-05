@@ -333,3 +333,7 @@ html,body{
 	background-color:#d3284a;
 	color:#FFFFFF;
 }
+#garden{
+	display:none;
+	position:absolute;
+}

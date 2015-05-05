@@ -3,7 +3,7 @@ window.onload=function(){
 	var setupTime=100;
 	var maxErrors=5;
 	var errorCount=0;
-	var scoreTime=1000;
+	var scoreTime=100;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
@@ -81,6 +81,7 @@ window.onload=function(){
 	function showObjectSetup(){
 		objectSetup.style.visibility="visible";
 		taskArea.style.visibility="hidden";
+		document.getElementById("garden").style.display="NONE";
 	}
 	function taskScreenOn(){
 		intask.style.zIndex="13";
@@ -139,6 +140,8 @@ window.onload=function(){
 	}
 	function createGarden(){
 		var totalScores=0;
+		taskArea.style.visibility="hidden";
+		document.getElementById("garden").style.display="block";
 		for(var i=0;i<scores.length;i++){
 			var curScore=scores[i];
 			if(i%total==0){
@@ -227,6 +230,7 @@ window.onload=function(){
 			done=true;
 			count=total;
 			exercise+=1;
+			showGarden=true;
 			highlightObject();
 			updateVideo();
 			document.getElementById("diagIMG").src="../img/icons-all/diagrams-ex"+exercise.toString()+ ".png";
