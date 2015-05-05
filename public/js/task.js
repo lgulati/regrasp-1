@@ -1,6 +1,8 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=200;
+	var setupTime=2000;
+	var maxErrors=5;
+	var errorCount=0;
 	var scoreTime=1000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
@@ -293,6 +295,7 @@ window.onload=function(){
 					updateCurrentScore(score);
 				}
 			}else{
+				errorCount+=1;
 				notChecked=false;
 				var errorType=0;
 				if(obj.error1!=1){
@@ -302,16 +305,23 @@ window.onload=function(){
 				}else if(obj.error3!=1){
 					errorType=3;
 				}
-				if(errorType==0){
+				if(errorType==0||errorCount>=5){
+					attempt=0;
+					notChecked=false;
 					checkForErrors=false;
-					setup=false;
-					document.getElementById("firstDiagramText").innerHTML="Set up your object(s) and hand";
-					showDiagram();
 					diagramLayout=true;
+					showDiagram();
+					document.getElementById("objectsUsed").style.visibility="visible";
+					document.getElementById("start").style.display="";
+					document.getElementById("firstDiagramText").innerHTML="Set up your object(s) and hand";
+					document.getElementById("firstSetup").style.display="block";
+					document.getElementById("firstSetup").src="../img/icons-all/diagrams-start"+exercise.toString()+".png";
+					diagramLayout=true;
+					firstDiagram.style.width="85%";
 					//systemSetup();
 				}else{
 					setup=true;
-					errorScreen(0);
+					errorScreen(errorType);
 				}
 
 			}
