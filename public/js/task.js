@@ -216,7 +216,6 @@ window.onload=function(){
 
 	}
 	function updateVideo(){
-		alert("changed video");
 		var video = document.getElementById('videodiag');
 		video.setAttribute("src","../img/INR-Exercise"+exercise.toString()+".mp4");
 	}
@@ -369,11 +368,16 @@ window.onload=function(){
 		}
 	}
 	document.getElementById("video").onclick=function(){
+		var video = document.getElementById('videodiag');
+		video.currentTime=0;
+		video.play();
 		popup.style.display="block";	
+
 
 	}
 	document.getElementById("exit").onclick=function(){
 		popup.style.display="none";	
+
 
 	}
 	
