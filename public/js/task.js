@@ -1,6 +1,6 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=2000;
+	var setupTime=100;
 	var maxErrors=5;
 	var errorCount=0;
 	var scoreTime=1000;
@@ -217,6 +217,7 @@ window.onload=function(){
 	}
 	function updateVideo(){
 		var video = document.getElementById('videodiag');
+
 		video.setAttribute("src","../img/INR-Exercise"+exercise.toString()+".mp4");
 	}
 	function updateCountScreen(){
