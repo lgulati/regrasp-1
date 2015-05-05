@@ -363,7 +363,7 @@ window.onload=function(){
 			resetStartScreen();
 			gotScore=false;
 			socket.emit("json",endTask);
-		d
+		
 
 		}
 	}
