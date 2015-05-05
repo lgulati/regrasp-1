@@ -1,9 +1,9 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=100;
+	var setupTime=1000;
 	var maxErrors=5;
 	var errorCount=0;
-	var scoreTime=100;
+	var scoreTime=1000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
