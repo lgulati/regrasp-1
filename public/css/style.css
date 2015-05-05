@@ -333,9 +333,16 @@ html,body{
 	background-color:#d3284a;
 	color:#FFFFFF;
 }
+
 #garden{
 	display:none;
 	position:absolute;
+	float:left;
+	width:85%;
+	height:100%;
+	background-image: url("../img/flower-background.svg") ;
+    background-repeat:no-repeat;
+    background-size: cover;
 }
 a {
 text-decoration: none;

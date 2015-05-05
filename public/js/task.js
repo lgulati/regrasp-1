@@ -1,9 +1,9 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=1000;
+	var setupTime=100;
 	var maxErrors=5;
 	var errorCount=0;
-	var scoreTime=1000;
+	var scoreTime=100;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
@@ -45,8 +45,8 @@ window.onload=function(){
 	var lastObjects=[];
 	lastObjects.push(objects[0]);
 	var setup=false;
-	var attempt=0;
 	highlightObject();
+	var attempt=0;
 	function systemSetup(){
 		showReps();
 		hideDiagram();
@@ -105,7 +105,16 @@ window.onload=function(){
 		var svgContent=svgfile.contentDocument;
 		var objects=svgContent.getElementsByClassName("ex"+exercise.toString());
 		for(var i=0;i<objects.length;i++){
-			objects[i].style.fill="#B3DD5F";
+			var id=objects[i].id;
+			var fill=""
+			if(id=="blue")
+				fill="#4ea7f1"
+			else if(id=="green")
+				fill="#B3DD5F";
+			else{
+				fill="#b9dfff";
+			}
+			objects[i].style.fill=fill;
 			lastObjects.push(objects[i]);
 		}
 
