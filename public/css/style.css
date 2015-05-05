@@ -31,7 +31,7 @@ html{
 	width:100%;
 	height:100%;
 	display:table;
-	color:#d22848;
+	color:#59595B;
 	font-family:"Monserat";
 	font-size:36pt;
 } 
@@ -95,7 +95,7 @@ html{
 	text-align: center;
 	height:100%;	
 	width:15%;
-	background-color:#f3284e;;
+	background-color:#f3284e;
 	float:left;
 
 }
@@ -336,4 +336,18 @@ html,body{
 #garden{
 	display:none;
 	position:absolute;
+}
+a {
+text-decoration: none;
+}
+#beginButton{
+	background-color:#97e157;
+	width:40%;
+	display:block;
+	margin:auto;
+	margin-top:80px;
+	margin-bottom:80px;
+	padding:100px;
+	color:#FFFFFF;
+
 }

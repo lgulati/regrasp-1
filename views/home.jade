@@ -5,14 +5,8 @@ html
     body(margin="auto")
       div.homecontainer
         div.centered
-          p(style='withe-space:pre;') Select an Account
-          div.iconWtext
-            a(href="/patienthome/")
-              img.users(src="img/icons-all/user-avatar.png",height="100px",width="100px")
-            div.caption Regular
-          div.iconWtext
-            a(href="/taskgo/")
-              img.users(src="../img/icons-all/user-avatar.png",height="100px",width="100px")
-              div.caption Demo
-
-        
+          span Welcome to the Home-based therapy study. 
+          br
+          a(href='/taskgo/')
+            div#beginButton Begin
+          span Press the button above to begin.

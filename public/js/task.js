@@ -167,7 +167,7 @@ window.onload=function(){
 			diagramOn=false;
 			objectSetup.style.visibility="hidden";
 			firstDiagram.style.visibility="visible";
-			document.getElementById("SetupText").innerHTML="Set up your object and hand";
+			document.getElementById("SetupText").innerHTML="You will be using the highlighted object(s) in the upcoming task";
 			document.getElementById("objectsUsed").style.visibility="hidden";
 			document.getElementById("firstSetup").src="../img/icons-all/diagrams-start"+exercise.toString()+".png";
 			//need to request setup here
@@ -193,7 +193,7 @@ window.onload=function(){
 			socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 		}else if(repsScreen){
 			socket.emit("json",taskDone+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
-			if(exercise<4){
+			if(exercise<=4){
 				repsScreen=false;
 				diagramOn=true;
 				if(count==total){
@@ -317,7 +317,7 @@ window.onload=function(){
 					showDiagram();
 					document.getElementById("objectsUsed").style.visibility="visible";
 					document.getElementById("start").style.display="";
-					document.getElementById("firstDiagramText").innerHTML="Set up your object(s) and hand";
+					document.getElementById("firstDiagramText").innerHTML="Place the object(s) in on the highlighted area of the mat";
 					document.getElementById("firstSetup").style.display="block";
 					document.getElementById("firstSetup").src="../img/icons-all/diagrams-start"+exercise.toString()+".png";
 					diagramLayout=true;
