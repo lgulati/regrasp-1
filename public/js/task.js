@@ -213,7 +213,11 @@ window.onload=function(){
 		}
 
 	}
-
+	function updateVideo(){
+		alert("changed video");
+		var video = document.getElementById('videodiag');
+		video.setAttribute("src","../img/INR-Exercise"+exercise.toString()+".mp4");
+	}
 	function updateCountScreen(){
 		if(count>0){
 			document.getElementById("resetObjects").innerHTML="Reset your objects.";
@@ -222,6 +226,7 @@ window.onload=function(){
 			count=total;
 			exercise+=1;
 			highlightObject();
+			updateVideo();
 			document.getElementById("diagIMG").src="../img/icons-all/diagrams-ex"+exercise.toString()+ ".png";
 			//showGarden=true;
 			document.getElementById("resetObjects").innerHTML="Task is done.";
