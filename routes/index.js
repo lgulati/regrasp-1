@@ -40,8 +40,8 @@ exports.starttask=function(req,res){
 exports.gotask=function(req,res){
 	res.render('taskgo',{title:"Task Go"});
 }
-exports.taskscore=function(req,res){
-	res.render('taskscore',{title:"Task Go"});
+exports.endscreen=function(req,res){
+	res.render('endscreen',{title:"Thank you"});
 }
 
 

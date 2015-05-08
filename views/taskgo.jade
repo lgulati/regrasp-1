@@ -9,14 +9,21 @@ html
     body(margin="auto")
       div.tabletLayout
         div#pretask 
-          div#garden.centeredPatient
-            div.centered
-              p GARDEN
+          div#garden
+            div#story
+              span#storyText Hey
+            div#flowers
+              img.flower#flower1(src="../img/icons-all/flower1.svg")
+              img.flower#flower2(src="../img/icons-all/flower1.svg")
+              img.flower#flower3(src="../img/icons-all/flower1.svg")
+              img.flower#flower4(src="../img/icons-all/flower1.svg")
+              img.flower#flower5(src="../img/icons-all/flower1.svg")
           div.centeredPatient
             div#objectSetup
               div.centered
                 span#SetupText You will be using the highlighted object(s) in the upcoming task
                 object#objectsUsed(data="../img/icons-all/objects.svg" ftype="image/svg+xml")
+                span Remove any other objects that are on the mat and put them away.
             div#firstDiagram
               div.centered
                 span#firstDiagramText Place the object(s) in on the highlighted area of the mat
@@ -30,14 +37,15 @@ html
                       div.centered
                         div#exit 
                           span Press to go back
-                span#exerciseTitle Pass me the cup
+                span#exerciseTitle Exercise 1
                 span#diag_wrap
                 img#diagIMG(src="../img/icons-all/diagrams-ex1.png")
                 div
                   span#video Video Example
             div#taskArea
               div.centered
-                div.image         
+                span#prep Sit with your back against the chair and press and continue.
+                div.image       
                   object#scoreImage(data="../img/icons-all/fullcircle-thirds.svg" ftype="image/svg+xml")  
                   div.scoreArea
                     div#repetitions
@@ -57,4 +65,4 @@ html
         div#task
           div.centeredTask
             div.centered
-              p#tasktext Start
+              p#tasktext Press the screen to start task

@@ -1,9 +1,15 @@
 window.onload=function(){
 	var taskLoad=false;
-	var setupTime=1000;
+	var gardenQuotes=["It looks like your garden is beginning to grow. </br>Continue on to the next exercise.",
+						"Another flower has appeared in your garden. </br>Continue on to the next exercise.",
+						"Another flower has appeared in your garden. </br>Continue on to the next exercise.",
+						"Look at how much your garden has grown today. </br>Click to exit and have a nice day!"
+						
+						]
+	var setupTime=100;
 	var maxErrors=5;
 	var errorCount=0;
-	var scoreTime=1000;
+	var scoreTime=100;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
@@ -90,6 +96,7 @@ window.onload=function(){
 	}
 	function showReps(){
 		document.getElementById("repetitions").style.display="block";
+		document.getElementById("prep").style.display="";
 		document.getElementById("scoreResponse").style.display="none";
 	}
 	function hideSetup(){
@@ -147,19 +154,37 @@ window.onload=function(){
 		document.getElementById("firstSetup").style.display="none";
 		document.getElementById("start").style.display="none";
 	}
+	function addFlowerToGarden(score){
+		var source="../img/icons-all/flower"+score.toString()+".svg";
+		var flowers=document.getElementById("flower"+(exercise-1).toString());
+		flowers.style.display="inline-block";
+		flowers.src=source;
+
+	}
 	function createGarden(){
+		var phrase=gardenQuotes[exercise-2];
+
+		document.getElementById("flowers").innertHTML;
 		var totalScores=0;
+		var avg;
 		taskArea.style.visibility="hidden";
 		document.getElementById("garden").style.display="block";
 		for(var i=0;i<scores.length;i++){
 			var curScore=scores[i];
-			if(i%total==0){
-				if(curScore>0){
-					totalScores+=curScore;
-
-				}
+			if(curScore>0){
+				totalScores+=curScore;
 			}
+			
 		}
+		avg=Math.round((totalScores*1.0)/total);
+
+		if(avg==0){
+			avg=1;
+		}
+		var values=scoreToValues(avg);
+		document.getElementById("storyText").innerHTML=values.response+". "+phrase;
+		addFlowerToGarden(avg);
+		scores=[];
 	}
 
 	document.getElementById("start").onclick=function(){
@@ -210,7 +235,7 @@ window.onload=function(){
 				}
 				showObjectSetup();
 			}else{
-				window.location.href="/";
+				window.location.href="/thankyou";
 			}
 
 		}
@@ -239,10 +264,12 @@ window.onload=function(){
 			done=true;
 			count=total;
 			exercise+=1;
+
 			showGarden=true;
 			highlightObject();
 			updateVideo();
 			document.getElementById("diagIMG").src="../img/icons-all/diagrams-ex"+exercise.toString()+ ".png";
+			document.getElementById("exerciseTitle").innerHTML="Exercise "+exercise.toString();
 			//showGarden=true;
 			document.getElementById("resetObjects").innerHTML="Task is done.";
 		}
@@ -345,12 +372,13 @@ window.onload=function(){
 	function endScreenOn(){
 		endReady=false;
 		setTimeout(enableEnd,scoreTime);
-		document.getElementById("tasktext").innerHTML="Tap the Screen When Finished";
+		document.getElementById("tasktext").innerHTML="Tap the screen when finished";
 		start=true;
 	}
 
 	function scoreLoadingScreen(){
 		document.getElementById("repetitions").style.display="none";
+		document.getElementById("prep").style.display="none";
 		document.getElementById("scoreResponse").style.display="block";
 		document.getElementById("scoreValue").innerHTML="Hold on";
 		document.getElementById("resetObjects").innerHTML="Score is loading.";
@@ -363,7 +391,7 @@ window.onload=function(){
 	}
 
 	function resetStartScreen(){
-		document.getElementById("tasktext").innerHTML="Start";
+		document.getElementById("tasktext").innerHTML="Press the screen to start task";
 		start=false;
 	}
 

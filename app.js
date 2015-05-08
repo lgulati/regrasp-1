@@ -57,7 +57,7 @@ app.get('/begintask/',routes.begintask);
 app.get('/starttask/',routes.starttask);
 app.get('/tasktest/',routes.taskTest);
 app.get('/taskgo/',routes.gotask);
-app.get('/taskscore/',routes.taskscore);
+app.get('/thankyou/',routes.endscreen);
 var startTask="{\"type\" : \"startTask\"}";
 var resetTask="{\"type\" : \"resetTask\"}";
 var endTask="{\"type\" : \"endTask\"}";
