@@ -359,6 +359,7 @@ window.onload=function(){
 					document.getElementById("firstSetup").src="../img/icons-all/diagrams-start"+exercise.toString()+".png";
 					diagramLayout=true;
 					firstDiagram.style.width="85%";
+					errorCount=0;
 					//systemSetup();
 				}else{
 					setup=true;
@@ -377,8 +378,6 @@ window.onload=function(){
 		setTimeout(enableEnd,scoreTime);
 		document.getElementById("tasktext").innerHTML="Task running. Tap the screen when done";
 		document.getElementById("centeredTask").style.color="#59595B";
-
-
 		start=true;
 	}
 
@@ -422,9 +421,8 @@ window.onload=function(){
 		video.currentTime=0;
 		video.play();
 		popup.style.display="block";	
-
-
 	}
+
 	document.getElementById("exit").onclick=function(){
 		popup.style.display="none";	
 
