@@ -6,10 +6,10 @@ window.onload=function(){
 						"Look at how much your garden has grown today. </br>Click to exit and have a nice day!"
 						
 						]
-	var setupTime=100;
+	var setupTime=1000;
 	var maxErrors=5;
 	var errorCount=0;
-	var scoreTime=100;
+	var scoreTime=1000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
@@ -157,8 +157,9 @@ window.onload=function(){
 	function addFlowerToGarden(score){
 		var source="../img/icons-all/flower"+score.toString()+".svg";
 		var flowers=document.getElementById("flower"+(exercise-1).toString());
-		flowers.style.display="inline-block";
 		flowers.src=source;
+		flowers.style.visibility="visible";
+
 
 	}
 	function createGarden(){
