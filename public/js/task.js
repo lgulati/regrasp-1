@@ -387,11 +387,11 @@ window.onload=function(){
 		document.getElementById("scoreResponse").style.display="block";
 		document.getElementById("scoreValue").innerHTML="Hold on";
 		document.getElementById("resetObjects").innerHTML="Score is loading.";
-		setTimeout(scoreTimeout,scoreTime);
 		intask.style.backgroundColor='#97e157';
 		intask.style.zIndex="9";
 		pretask.style.visibility="visible";
 		intask.style.visibility="hidden";
+		setTimeout(scoreTimeout,scoreTime);
 
 	}
 
