@@ -6,7 +6,7 @@ window.onload=function(){
 						"Look at how much your garden has grown today. </br>Click to exit and have a nice day!"
 						
 						]
-	var setupTime=1000;
+	var setupTime=2000;
 	var maxErrors=5;
 	var errorCount=0;
 	var scoreTime=1000;
@@ -340,11 +340,14 @@ window.onload=function(){
 				notChecked=false;
 				var errorType=0;
 				if(obj.error1!=1){
+					alert('error 1');
 					errorType=1;
 				}else if(obj.error2!=1){
 					errorType=2;
+					alert("error 2");
 				}else if(obj.error3!=1){
 					errorType=3;
+					alert("error 3" );
 				}
 				if(errorType==0||errorCount>=5){
 					attempt=0;
