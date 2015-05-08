@@ -6,10 +6,10 @@ window.onload=function(){
 						"Look at how much your garden has grown today. </br>Click to exit and have a nice day!"
 						
 						]
-	var setupTime=2000;
+	var setupTime=4000;
 	var maxErrors=5;
 	var errorCount=0;
-	var scoreTime=1000;
+	var scoreTime=4000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
@@ -372,8 +372,13 @@ window.onload=function(){
 
 	function endScreenOn(){
 		endReady=false;
+		intask.style.backgroundColor="#e9e9f4";
+		intask.style.color="#59595B";
 		setTimeout(enableEnd,scoreTime);
-		document.getElementById("tasktext").innerHTML="Tap the screen when finished";
+		document.getElementById("tasktext").innerHTML="Task running. Tap the screen when done";
+		document.getElementById("centeredTask").style.color="#59595B";
+
+
 		start=true;
 	}
 
@@ -393,6 +398,8 @@ window.onload=function(){
 
 	function resetStartScreen(){
 		document.getElementById("tasktext").innerHTML="Press the screen to start task";
+		intask.style.backgroundColor="#97e157";
+		document.getElementById("centeredTask").style.color="#FFFFFF";
 		start=false;
 	}
 
