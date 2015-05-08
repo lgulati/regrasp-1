@@ -6,10 +6,10 @@ window.onload=function(){
 						"Look at how much your garden has grown today. </br>Click to exit and have a nice day!"
 						
 						]
-	var setupTime=4000;
+	var setupTime=6000;
 	var maxErrors=5;
 	var errorCount=0;
-	var scoreTime=4000;
+	var scoreTime=6000;
 	var checkForErrors=false;
 	var startTask="{\"type\" : \"startTask\", \"task\" : ";
 	var resetTask="{\"type\" : \"resetTask\"}";
