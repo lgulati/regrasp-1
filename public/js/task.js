@@ -6,7 +6,7 @@ window.onload=function(){
 						"Look at how much your garden has grown today. </br>Click to exit and have a nice day!"
 						
 						]
-	var setupTime=6000;
+	var setupTime=600;
 	var maxErrors=5;
 	var errorCount=0;
 	var scoreTime=6000;
@@ -372,16 +372,17 @@ window.onload=function(){
 	});
 
 	function endScreenOn(){
-		endReady=false;
+		start=true;
 		intask.style.backgroundColor="#e9e9f4";
 		intask.style.color="#59595B";
-		setTimeout(enableEnd,scoreTime);
+		setTimeout(enableEnd,300);
 		document.getElementById("tasktext").innerHTML="Task running. Tap the screen when done";
 		document.getElementById("centeredTask").style.color="#59595B";
-		start=true;
+
 	}
 
 	function scoreLoadingScreen(){
+				start=true;
 		document.getElementById("repetitions").style.display="none";
 		document.getElementById("prep").style.display="none";
 		document.getElementById("scoreResponse").style.display="block";
