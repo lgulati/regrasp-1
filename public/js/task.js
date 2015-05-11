@@ -6,7 +6,7 @@ window.onload=function(){
 						"Look at how much your garden has grown today. </br>Click to exit and have a nice day!"
 						
 						]
-	var setupTime=600;
+	var setupTime=6000;
 	var maxErrors=5;
 	var errorCount=0;
 	var scoreTime=6000;
@@ -397,7 +397,7 @@ window.onload=function(){
 	}
 
 	function resetStartScreen(){
-		document.getElementById("tasktext").innerHTML="Press the screen to start task";
+		document.getElementById("tasktext").innerHTML="Press the screen before starting the task";
 		intask.style.backgroundColor="#97e157";
 		document.getElementById("centeredTask").style.color="#FFFFFF";
 		start=false;
