@@ -228,6 +228,11 @@ window.onload=function(){
 			socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 		}else if(repsScreen){
 			socket.emit("json",taskDone+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
+					document.getElementById("resetObjects").innerHTML="Score is loading.";
+			document.getElementById("centeredPatient").style.width="85%";
+			document.getElementById("taskArea").style.width="85%";
+			document.getElementById("key").style.display="none";
+			document.getElementById("image").style.display="none";
 			if(exercise<=4){
 				repsScreen=false;
 				diagramOn=true;
@@ -388,6 +393,10 @@ window.onload=function(){
 		document.getElementById("scoreResponse").style.display="block";
 		document.getElementById("scoreValue").innerHTML="Hold on";
 		document.getElementById("resetObjects").innerHTML="Score is loading.";
+		document.getElementById("centeredPatient").style.width="65%";
+		document.getElementById("taskArea").style.width="65%";
+		document.getElementById("key").style.display="block";
+		document.getElementById("image").style.display="block";
 		intask.style.backgroundColor='#97e157';
 		intask.style.zIndex="9";
 		pretask.style.visibility="visible";

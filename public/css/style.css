@@ -197,7 +197,7 @@ display:table-cell;
 font-size:36pt;
 
 }
-.centeredpatient{
+#centeredpatient{
 display:table;
 margin-top:auto;
 margin-bottom:auto;
@@ -391,6 +391,19 @@ color:#FFFFFF;
 }
 #flower5{
 	left:1200px;
+}
+#key{
+	display:none;
+	width:20%;
+	display:table;
+	z-index:4;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align: center;
+	float:left;
+}
+#image{
+	display:none;
 }
 #story{
 margin-top:auto;
