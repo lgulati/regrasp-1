@@ -227,7 +227,11 @@ window.onload=function(){
 			}
 			socket.emit("json",systemReady+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 		}else if(repsScreen){
-			socket.emit("json",taskDone+exercise.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
+			var exUsed=exercise;
+			if(exercise==5){
+				exUsed=1;
+			}
+			socket.emit("json",taskDone+exUsed.toString()+", \"iteration\" :  " +(4-count).toString()+"}");
 					document.getElementById("resetObjects").innerHTML="Score is loading.";
 			document.getElementById("centeredPatient").style.width="85%";
 			document.getElementById("taskArea").style.width="85%";
