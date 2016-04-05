@@ -10,8 +10,7 @@ var client=new net.Socket();
 var curTaskID=-1;
 
 //Currently connects to my computer.
-//var HOST='Latikas-Macbook-Pro.local';
-var HOST = '10.0.0.2'
+var HOST = '172.30.49.79'
 var PORT=8888;
 //handle send or receive failures and connection
 client.connect(PORT,HOST,function(){
