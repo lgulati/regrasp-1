@@ -26,6 +26,7 @@ public class ServerMain
 
         //We need a try-catch because lots of errors can be thrown
         try {
+            //Should connect
             ServerSocket sSocket = new ServerSocket(8888);
             System.out.println("Server started at: " + new Date()); 
             //Wait for a client to connect

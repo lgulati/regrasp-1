@@ -3,31 +3,32 @@ var express = require('express')
 var stormpath = require('express-stormpath');
 var app = express();
 var http=require('http').Server(app);
+//Connects to the web app
 var socket = require('socket.io')(http);
 var net = require('net');
 var client=new net.Socket();
 var curTaskID=-1;
-//var ak='128.237.208.246';
-/*var client = net.connect(8888,'128.237.166.175',function(){
-	console.log('Connected');
-});*/
-var HOST='localhost';
+
+//Currently connects to my computer.
+//var HOST='Latikas-Macbook-Pro.local';
+var HOST = '10.0.0.2'
 var PORT=8888;
-//var HOST='128.237.221.1';
-//var HOST='128.237.208.246';
 //handle send or receive failures and connection
 client.connect(PORT,HOST,function(){
 	console.log('Connected');
 });
+
+//Connected to the individual machine
 var io = require('socket.io').listen(app.listen(3000));
+//THIS IS WHERE BACK END MESSAGES ARE RECIEVED
 client.on('data', function(data) {
   console.log(data.toString());
+  //COMMUNICATES WITH TASK.JS
   io.emit('message', { message: data.toString() });
 });
 client.on('error',function(err){
 	console.log(err);
 	if(err.code == 'ECONNREFUSED'||'ECONNRESET'){
-		console.log("HERE");
 		client.setTimeout(1000,function(){
 			client.connect(PORT,HOST,function(){
 			});
@@ -44,6 +45,7 @@ app.get('/', function(req, res) {
     title: 'Welcome'
   });
 });
+//Connection to the jade files
 app.get('/patienthome/',routes.patienthome);
 app.get('/showPatient/', routes.showPatient);
 app.get('/beginsetup/', routes.beginsetup);
@@ -58,9 +60,11 @@ app.get('/starttask/',routes.starttask);
 app.get('/tasktest/',routes.taskTest);
 app.get('/taskgo/',routes.gotask);
 app.get('/thankyou/',routes.endscreen);
+
+//All of the tasks are defined
 var startTask="{\"type\" : \"startTask\"}";
 var resetTask="{\"type\" : \"resetTask\"}";
-var endTask="{\"type\" : \"endTask\"}";
+var endTask="{\"type\" : \"endTask\"}"; //writes to the client "end task" which will write to the server
 var enable="{\"type\" : \"request\",\"enableEvent\": true}";
 var quit="{\"type\" : \"quit\"}";
 var disable="{\"type\" : \"request\",\"enableEvent\": false}";
