@@ -9,8 +9,7 @@ var net = require('net');
 var client=new net.Socket();
 var curTaskID=-1;
 
-//Currently connects to my computer.
-var HOST = '172.30.49.79'
+var HOST = '172.30.49.79' //NOTE: THIS IP ADDRESS IS HARD-CODED IN. CHANGE IT TO YOUR COMPUTER
 var PORT=8888;
 //handle send or receive failures and connection
 client.connect(PORT,HOST,function(){
